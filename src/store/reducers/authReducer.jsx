@@ -1,11 +1,26 @@
+import actionTypes from "../actions/actionTypes"
+
 const initState = {
     isLoggedIn: false, // cho biết mình đã đăng nhập chưa
-    token: null
+    token: null,
+    mess: ''
 }
 
 const authReducer = (state = initState, action) =>{
     switch (action.type) {
-       
+       case actionTypes.REGISTER_SUCCESS:
+        return{
+            ...state,
+            isLoggedIn: true,
+            token: action.data
+        }
+        case actionTypes.REGISTER_FAIL:
+        return{
+            ...state,
+            isLoggedIn: false,
+            mess: action.data,
+            token: null
+        }
         default:
             return state
     }
