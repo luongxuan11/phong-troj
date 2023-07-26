@@ -1,0 +1,5 @@
+export {default as Contact} from './Contact'
+export {default as Intro} from './Intro'
+export {default as Model} from './Model'
+export {default as Search} from './Search'
+export {default as SearchDetail} from './SearchDetail'

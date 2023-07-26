@@ -1,4 +1,4 @@
-*{
+* {
   box-sizing: border-box;
 }
 body {
@@ -11,61 +11,76 @@ body {
   max-width: calc(100% - 48px);
   margin: 0 auto;
 }
-label{
+.ellipsis {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.ellipsis-nowrap {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+label {
   cursor: pointer;
 }
-button{
+button {
   background: transparent;
   border: none;
   cursor: pointer;
 }
-.row{
+.row {
   display: flex;
   align-items: center;
 }
-.row__inline{
+.row__inline {
   display: inline-flex;
   align-items: center;
 }
-a{
+.cursor{
+  cursor: pointer;
+}
+a {
   text-decoration: none;
 }
-.btn{
+.btn {
   padding: 10px;
   border-radius: 5px;
   gap: 5px;
-  &:hover{
+  &:hover {
     text-decoration: underline;
   }
 }
-span{
+span {
   font-size: 1.2rem !important;
   color: #dadada;
 }
 //end common
 
-
-.home{
+.home {
   border: 1px solid red;
-  height: 100%;
   width: 100%;
 
   // home header
-  &-header{
+  &-header {
     justify-content: space-between;
-    .btn-box{
+    .btn-box {
       gap: 10px;
-      &__login{
+      &__login {
         background-color: #1266dd;
       }
-      &__register{
+      &__register {
         background-color: #f73859;
       }
-      &__news{
+      &__out {
+        background-color: red;
+      }
+      &__news {
         border: 1px solid;
         text-decoration: underline;
         transition: 0.5s;
-        &:hover{
+        &:hover {
           background-color: #d2465d;
         }
       }
@@ -73,25 +88,24 @@ span{
   }
 
   // home login
-  &-login{
+  &-wrapper {
     // margin: 0 auto;
-    justify-content: center;
-    &__wrapper{
-      margin: unset;
+    .home-login__wrapper {
+      margin: 10px auto 0 !important;
       background-color: #fff;
       width: 50%;
       border-radius: 10px;
       padding: 30px 30px 100px;
       border: 1px solid #dedede;
-      .home-login__title{
+      .home-login__title {
         color: #333;
         font-size: 2.8rem;
         margin-bottom: 2rem;
       }
 
-      .home-login__control{
+      .home-login__control {
         width: 100%;
-        input{
+        input {
           width: 100%;
           outline: none;
           background-color: transparent;
@@ -100,12 +114,29 @@ span{
           border-radius: 3px;
           margin: 10px 0;
         }
-        label{
-          font-size: 1.4rem;
+        label {
+          font: {
+            size: 1.7rem;
+            weight: 600;
+          }
+          color: #dfdfdf;
+          letter-spacing: 0.5px;
+        }
+        .home-login__error {
+          color: red;
+          display: block;
+          font: {
+            size: 1.2rem;
+            style: italic;
+          }
+          position: relative;
+          top: -5px;
+          left: 2px;
+          margin-bottom: 1.6rem;
         }
       }
 
-      .home-login__btn{
+      .home-login__btn {
         width: 100%;
         height: 45px;
         background-color: #1266dd;
@@ -113,20 +144,21 @@ span{
         font-weight: 700;
         margin: 20px 0 40px 0;
         transition: 0.3s;
-        &:hover{
+        &:hover {
           box-shadow: rgba(57, 96, 251, 0.762) 0px 7px 29px 0px;
         }
       }
 
-      .home-login__option{
+      .home-login__option {
         justify-content: space-between;
         margin: 0 10px;
-        .home-login__ask-login, .home-login__ask-register{
+        .home-login__ask-login,
+        .home-login__ask-register {
           color: #1266dd;
           font-size: 1.4rem !important;
           cursor: pointer;
           transition: 0.1s;
-          &:hover{
+          &:hover {
             color: #a73800;
           }
         }
@@ -135,24 +167,86 @@ span{
   }
 
   // home navigation
-  &-nav{
+  &-nav {
     width: 100%;
     background-color: #1266dd;
     margin-bottom: 10px;
-    &__list{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    &__list {
       justify-content: space-between;
-      .home-nav__item{
-        padding: 12px 5px;
+      .home-nav__item {
         cursor: pointer;
+        white-space: nowrap;
+        overflow: hidden;
         font: {
           weight: 500;
           size: 1.3rem;
         }
-        &:hover{
-          background-color: #f73859;
+        a {
+          display: block;
+          color: #fff;
+          padding: 12px 15px;
+          text-overflow: ellipsis;
+          &:hover {
+            background-color: #f73859;
+          }
+        }
+      }
+      .home-nav__item.active {
+        background-color: #f73859;
+      }
+    }
+  }
+
+  // province
+  .province-box {
+    max-width: 611px;
+    justify-content: space-between;
+    margin: 0 auto;
+    margin-bottom: 2rem;
+    &__inner {
+      border-radius: 10px;
+      overflow: hidden;
+      width: 31.1%;
+      height: 15rem;
+      background-color: #fff;
+      &:hover .province-box__title {
+        color: #fb4e38;
+      }
+      .province-box__img {
+        width: 100%;
+        height: 70%;
+        object-fit: cover;
+        object-position: center;
+        cursor: pointer;
+      }
+      .province-box__title {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+        color: #0071c2;
+        font: {
+          size: 1.4rem;
+          weight: 700;
         }
       }
     }
   }
 }
 
+.messAndSporter{
+  position: fixed;
+  bottom: 90px;
+  right: 25px;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #f83859;
+  justify-content: center;
+  &:hover{
+    cursor: pointer;
+  }
+}

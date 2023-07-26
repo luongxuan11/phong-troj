@@ -1,22 +1,30 @@
-import React from 'react'
+import React, {useState, useEffect} from "react";
+import { NavLink, useLocation } from "react-router-dom";
+import {formatVietNamToString} from '../../utilities/common/formatVietNamToString'
 
-const Navigation = () => {
+const Navigation = ({categories}) => {
+
+  // set path url
+  let location = useLocation()
+  const currentPathName = (location.pathname).replace(/\//g, "")
+
   return (
-    <div className='home-nav'>
-        <ul className='container home-nav__list row'>
-            <li className="home-nav__item">Trang chủ</li>
-            <li className="home-nav__item">Cho thuê phòng trọ</li>
-            <li className="home-nav__item">Nhà cho thuê</li>
-            <li className="home-nav__item">Cho thuê căn hộ</li>
-            <li className="home-nav__item">Cho thuê mặt bằng</li>
-            <li className="home-nav__item">Tìm người ở ghép</li>
-            <li className="home-nav__item">Blog</li>
-            <li className="home-nav__item">Hướng dẫn</li>
-            <li className="home-nav__item">Nạp tiền</li>
-            <li className="home-nav__item">Bảng giá</li>
-        </ul>
+    <div className="home-nav">
+      <ul className="container home-nav__list row">
+       <li className={`home-nav__item ${currentPathName === ""  ? "active" : ""}`}>
+        <NavLink to='/'>Trang chủ</NavLink>
+       </li>
+       
+        {categories?.length > 0 &&categories.map((item) => {  // do là nhiều khi nhận data bị lỗi k có nên phải check xem có length k
+            return (
+              <li className={`home-nav__item ${currentPathName === (formatVietNamToString(item.value)) ? "active" : ""}`} key={item.code}>
+                <NavLink to={formatVietNamToString(item?.value)}>{item?.value}</NavLink>
+              </li>
+            );
+          })}
+      </ul>
     </div>
-  )
-}
+  );
+};
 
-export default Navigation
+export default Navigation;

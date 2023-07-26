@@ -1,0 +1,21 @@
+.home-item__pagination {
+  justify-content: center;
+  gap: 5px;
+  margin: 20px 0 0 ;
+  .page-number__action {
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 15px 18px;
+    background: #fff;
+    &:hover {
+      background-color: #ddd;
+      border-color: #ddd;
+    }
+  }
+}
+.page-number__action--active{
+  background-color: #e13427 !important;
+}
+.page-number__action--cursor{
+  cursor: unset;
+}

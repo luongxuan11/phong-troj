@@ -1,7 +1,24 @@
+// trong này chứa các tên để map với reducer
+
 const actionTypes = {
     LOGIN: 'LOGIN',
     REGISTER_SUCCESS: 'REGISTER_SUCCESS',
     REGISTER_FAIL: 'REGISTER_FAIL',
-    LOGOUT: 'LOGUOT'
+    LOGIN_SUCCESS: 'LOGIN_SUCCESS',
+    LOGIN_FAIL: 'LOGIN_FAIL',
+    LOGOUT: 'LOGUOT',
+
+
+    GET_POST: "GET_POST",
+    GET_POST_LIMIT: "GET_POST_LIMIT",
+    GET_NEW_POST: "GET_NEW_POST", 
+
+    GET_CATEGORIES: 'GET_CATEGORIES',
+
+    GET_PRICES: 'GET_PRICES',
+    GET_ACREAGES: 'GET_ACREAGES',
+    GET_PROVINCES: 'GET_PROVINCES',
+
+    TOGGLE_CHECKBOX: 'TOGGLE_CHECKBOX',
 }
 export default actionTypes
