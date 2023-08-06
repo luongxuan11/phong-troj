@@ -8,6 +8,10 @@ const instance = axios.create({    //cho phép bạn tạo ra một instance c�
 instance.interceptors.request.use(function (config) {  // interceptors.request sẽ chặn trước khi nó gửi req lên sever
     // Làm gì đó trước khi request dược gửi đi
     // thích hợp để gán header vào đây
+    let token = JSON.parse(window.localStorage.getItem('persist:auth'))?.token.slice(1, -1)
+    config.headers = { //Đây là một đối tượng trong config chứa thông tin về các header của request.
+      authorization: token ? `${token}` : null
+    }
 
     return config;
   }, function (error) {

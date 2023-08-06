@@ -9,7 +9,9 @@ export const path = {
   CHO_THUE_PHONG_TRO: "cho-thue-phong-tro",
   NHA_CHO_THUE: "nha-cho-thue",
   DETAIL_POST__TITLE__POSTID: "chi-tiet/:title/:postId",
-  SEARCH: 'tim-kiem'
+  SEARCH: 'tim-kiem',
+  SYSTEM: '/he-thong/*',
+  CREATE_POST: 'tao-moi-bai-dang'
 };
 
 export const constant = {

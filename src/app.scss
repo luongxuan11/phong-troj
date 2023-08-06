@@ -24,6 +24,7 @@ body {
 }
 label {
   cursor: pointer;
+  font-weight: 600;
 }
 button {
   background: transparent;
@@ -43,6 +44,9 @@ button {
 }
 a {
   text-decoration: none;
+}
+input{
+  outline: none;
 }
 .btn {
   padding: 10px;
@@ -67,14 +71,37 @@ span {
     justify-content: space-between;
     .btn-box {
       gap: 10px;
+      position: relative;
       &__login {
         background-color: #1266dd;
       }
       &__register {
         background-color: #f73859;
       }
-      &__out {
-        background-color: red;
+      &__manage {
+        background-color: #122add;
+      }
+      &__manage__model{
+        position: absolute;
+        top: 45px;
+        right: 95px;
+        z-index: 9999;
+        background-color: #fff;
+        border-radius: 8px;
+        flex-direction: column;
+        overflow: hidden;
+        justify-content: start;
+        padding: 10px 0;
+        .cursor{
+          padding: 15px 20px;
+          width: 100%;
+          color: #fff;
+          gap: 10px;
+          &:hover{
+            background-color: #dadada;
+            color: #f73859;
+          }
+        }
       }
       &__news {
         border: 1px solid;

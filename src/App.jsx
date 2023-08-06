@@ -1,11 +1,33 @@
+import { useEffect } from "react";
 import { Routes, Route} from "react-router-dom";
 import { Home, Login, HomeTitle, DetailPost } from "./containers/public";
 import {SearchDetail} from "./containers/smallComponent"
 import { path } from "./utilities/constant";
-import {ChoThueAll} from './containers/chothueAll/index'
+import {ChoThueAll} from './containers/public'
+import {System, CreatePost} from './containers/System'
+import { useDispatch, useSelector } from "react-redux";
+import * as actions from "./store/actions"
 
 function App() {
+  // useEffect(()=>{
+  //   setTimeout(() =>{
+  //     isLoggedIn && dispatch(actions.getCurrent())
+  //   }, 1000)
+  // }, [isLoggedIn])
+  //có 2 cách 1 là gọi ở đây 2 là ở file home
+  const dispatch = useDispatch()
+  useEffect(() =>{
+    dispatch(actions.getCategories())
+   dispatch(actions.getPrices())
+   dispatch(actions.getAcreage())
+   dispatch(actions.getProvince())
+ }, [])
 
+  // const {isLoggedIn} = useSelector((state) => state.auth)
+//   useEffect(() =>{
+//     isLoggedIn && dispatch(actions.getCategories())
+//  }, [isLoggedIn])
+ 
   return (
     <div>
       <Routes>
@@ -20,6 +42,9 @@ function App() {
           <Route path={path.SEARCH} element={<SearchDetail/>}/>
           <Route path={path.DETAIL_POST__TITLE__POSTID} element={<DetailPost />} />
           <Route path={"chi-tiet/*"} element={<DetailPost />} />
+        </Route>
+        <Route path={path.SYSTEM} element={<System/>}>
+            <Route path={path.CREATE_POST} element={<CreatePost/>}/>
         </Route>
       </Routes>
     </div>

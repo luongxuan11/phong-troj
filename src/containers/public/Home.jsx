@@ -14,6 +14,8 @@ const Home = () => {
    const dispatch = useDispatch()
    const location = useLocation()
    const { categories } = useSelector((state) => state.app)
+   const {isLoggedIn} = useSelector((state) => state.auth)
+   const {currentData} = useSelector((state) => state.user)
    const [showSearch, setShowSearch] = useState(true);
 
 // Kiểm tra location.pathname để xác định các trang không hiển thị Search
@@ -22,17 +24,15 @@ const Home = () => {
  }, [location]);
 
  // gọi api với useEffect
-   useEffect(() =>{
-      dispatch(actions.getCategories())
-     dispatch(actions.getPrices())
-     dispatch(actions.getAcreage())
-     dispatch(actions.getProvince())
-   }, [])
-  
+  useEffect(()=>{
+    setTimeout(() =>{
+      isLoggedIn && dispatch(actions.getCurrent())
+    }, 1000)
+  }, [isLoggedIn])
 
   return (
     <div className="home">
-      <Header />
+      <Header currentData={currentData} />
       <Navigation categories={categories}/>
       {showSearch && <Search />}
       <div className="home-wrapper container">

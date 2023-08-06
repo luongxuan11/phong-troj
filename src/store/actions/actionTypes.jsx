@@ -20,5 +20,8 @@ const actionTypes = {
     GET_PROVINCES: 'GET_PROVINCES',
 
     TOGGLE_CHECKBOX: 'TOGGLE_CHECKBOX',
+
+    // USER
+    GET_CURRENT: 'GET_CURRENT'
 }
 export default actionTypes

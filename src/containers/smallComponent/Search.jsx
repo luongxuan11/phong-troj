@@ -55,18 +55,19 @@ const Search = () => {
 
   // handle search
   const handleSearch = () => {
-    const filteredQueries = Object.entries(queries).filter((item) => item[0].includes('Code')).filter((item) => item[1])
+    const filteredQueries = Object.entries(queries).filter((item) => item[0].includes('Number') || item[0].includes('Code')).filter((item) => item[1])
     let resultFilteredQueries = {}
     filteredQueries.forEach((item) => resultFilteredQueries[item[0]] = item[1])
 
-    const filteredQueriesText = Object.entries(queries).filter((item) => !item[0].includes('Code'))
-    console.log("chek text>>>>>>",filteredQueriesText)
+    const filteredQueriesText = Object.entries(queries).filter((item) => (!item[0].includes('Number') && !item[0].includes('Code')))
+    // console.log("chek text>>>>>>", filteredQueriesText)
     const titleSearchHeading = filteredQueriesText.map((item) => item[1]).join(' > ');
     // console.log(titleSearchHeading || defaultText)
-    // navigate({ // chuyển trang và tạo url tương ứng
-    //   pathname: `/${path.SEARCH}`,
-    //   search: createSearchParams(resultFilteredQueries).toString(),
-    // }, {state: {titleSearchHeading}})
+    console.log(filteredQueriesText)
+    navigate({ // chuyển trang và tạo url tương ứng
+      pathname: `/${path.SEARCH}`,
+      search: createSearchParams(resultFilteredQueries).toString(),
+    }, {state: {titleSearchHeading}})
   }
     
   return (

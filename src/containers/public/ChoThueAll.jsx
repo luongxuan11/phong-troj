@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState} from "react";
 import { useSelector} from "react-redux";
 import {useLocation} from 'react-router-dom'
 import { Province } from "../../components";
-import { List } from "../public";
+import { List } from ".";
 import { formatVietNamToString } from "../../utilities/common/formatVietNamToString";
 
 const ChoThueAll = () => {

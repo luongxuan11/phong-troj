@@ -7,7 +7,6 @@ export const apiGetCategories = () =>
         method: "get",
         url: "/api/v1/categories/all",
       });
-      console.log("check categories", response);
       resolve(response);
     } catch (error) {
       reject(error);

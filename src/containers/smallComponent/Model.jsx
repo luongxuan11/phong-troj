@@ -2,7 +2,7 @@ import React, { useState, useEffect, memo } from "react";
 import icons from "../../utilities/icons";
 import { Button } from "../../components";
 import { getNumber, getNumberAcreage } from "../../utilities/common/getnumber";
-import {getCodes,getCodesAcreage} from "../../utilities/common/getCodePrices";
+// import {getCodes,getCodesAcreage} from "../../utilities/common/getCodePrices";
 import {ModelItem} from "../../components"
 
 const { BsArrowLeft } = icons;
@@ -136,7 +136,7 @@ const Model = ({setIsShowModel, content, name, text, handleSubmit, queries, arrM
     //     : console.error("mày vào sửa ở file model dòng 104");
     //     console.log(gaps)
     handleSubmit( e, {
-        [`${name}Code`]: arrMinMax,
+        [`${name}Number`]: arrMinMax,
         [name]:
           resultPresentMin === resultPresentMax
             ? `${resultPresentMin} ${name === "prices" ? "triệu" : "m2"}`
