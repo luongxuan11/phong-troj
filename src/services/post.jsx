@@ -58,3 +58,18 @@ export const apiGetPosts = () =>
       reject(error);
     }
   });
+
+  export const apiCreatePost = (payload) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await axiosConfig({
+        method: "post",
+        url: `/api/v1/post/create-new`,
+        data: payload
+      });
+      // console.log("check posts", response);
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });

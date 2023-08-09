@@ -23,13 +23,14 @@ const List = ({categories, prices, acreages, categoriesCode}) => {
     // console.log(param)
     let searchParamObj = {};
     param.forEach((i) => {
+      // console.log(searchParamObj.hasOwnProperty(i[0]))
       if(searchParamObj.hasOwnProperty(i[0])){
         searchParamObj[i[0]] = [...searchParamObj[i[0]], i[1]]
       }else{
         searchParamObj = { ...searchParamObj, [i[0]]: [i[1]]};
       }
     });
-    console.log(searchParamObj)
+    // console.log(searchParamObj.hasOwnProperty())
     if(categoriesCode) searchParamObj.categoriesCode = categoriesCode
     dispatch(getPostsLimit(searchParamObj));
   }, [params, categoriesCode]);

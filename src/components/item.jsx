@@ -19,7 +19,7 @@ const Item = ({address, attribute, star, description, images, title, user, id}) 
   stars.push(<AiTwotoneStar key={i} style={{ color: "yellow" }} />);
   }
   // addres =>> array
-  const parts = address.split(",")
+  const parts = address.split(/,|-/)
   const addArr = parts.slice(-2)
   
 

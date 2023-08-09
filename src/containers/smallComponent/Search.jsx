@@ -50,7 +50,7 @@ const Search = () => {
     setQueries(prev => ({...prev, ...query}))
     setIsShowModel(false)
     arrMinMax && setArrMinMax(prev => ({...prev, ...arrMinMax}))
-    console.log(isShowModel, queries)
+    // console.log(isShowModel, queries)
   }, [isShowModel, queries])
 
   // handle search
@@ -63,7 +63,7 @@ const Search = () => {
     // console.log("chek text>>>>>>", filteredQueriesText)
     const titleSearchHeading = filteredQueriesText.map((item) => item[1]).join(' > ');
     // console.log(titleSearchHeading || defaultText)
-    console.log(filteredQueriesText)
+    // console.log(filteredQueriesText)
     navigate({ // chuyển trang và tạo url tương ứng
       pathname: `/${path.SEARCH}`,
       search: createSearchParams(resultFilteredQueries).toString(),

@@ -17,7 +17,7 @@ const RelatedPost = () => {
       <h3 className='home-relatedPost__heading'>Tin mới đăng</h3>
       {newPost?.map((item) =>{
         return (
-          <ItemNewPost key={item.id} image={JSON.parse(item?.images?.image)} title={item?.title} price={item?.attribute?.price} createdAt={item?.createdAt}/>
+          <ItemNewPost key={item?.id} image={JSON.parse(item?.images?.image)} title={item?.title} price={item?.attribute?.price} createdAt={item?.createdAt}/>
         )
       })}
     </div>
