@@ -5,7 +5,7 @@ import Loading from './Loading'
 
     const {FcSwitchCamera, RiDeleteBin5Line} = icons
 
-const UploadFile = ({id, type, payload ,setPayload}) => {
+const UploadFile = ({id, type, payload ,setPayload, setInvalidFields, invalidFields}) => {
   const [preview, setPreview] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const handleFiles = async (e) =>{
@@ -44,6 +44,9 @@ const UploadFile = ({id, type, payload ,setPayload}) => {
             
             <input onChange={(e) =>handleFiles(e)} type={id} id={id} multiple/>
         </div>
+        <small className='select--error input--error'>
+            {invalidFields?.some(item => item.name === "images") && invalidFields?.find(item => item.name === "images")?.mess}
+          </small>
         <div className="preview row">
             {preview?.map((item, index) => {
               return (

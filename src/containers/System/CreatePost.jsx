@@ -2,7 +2,9 @@ import {React, useState} from 'react'
 import {Address, Overview, MapCreatePost, Button} from '../../components'
 import { getCodes, getCodesAcreage } from '../../utilities/common/getCodePrices'
 import { useSelector } from 'react-redux'
+import Swal from 'sweetalert2'
 import { apiCreatePost } from '../../services'
+import { validate } from '../public/validate'
 
 const CreatePost = () => {
 
@@ -21,6 +23,7 @@ const CreatePost = () => {
   })
   const {prices, acreages, categories} = useSelector(state => state.app)
   const {currentData} = useSelector(state => state.user)
+  const [invalidFields, setInvalidFields] = useState([])
   // console.log(currentData)
   const handleSubmit = async () =>{
     let priceCodeArr = getCodes(+payload.priceNumber, prices, 1, 15)
@@ -29,7 +32,7 @@ const CreatePost = () => {
     let acreageCode = acreageCodeArr[0]?.code
     let labelCode = `${categories?.find(item => item.code === payload?.categoryCode)?.value} tại ${payload?.address?.split(" - ")?.slice(0, 2)}`
     let category = categories?.find(item => item.code === payload?.categoryCode)?.value
-    console.log(category)
+    // console.log(category)
     let finalPayload = {
       ...payload,
       priceCode,
@@ -41,9 +44,29 @@ const CreatePost = () => {
       labelCode: labelCode,
       category
     }
-    console.log(finalPayload)
-    const response = await apiCreatePost(finalPayload)
-    // console.log(response)
+    const result = validate(finalPayload, setInvalidFields)
+    if(result === 0){
+      const response = await apiCreatePost(finalPayload)
+    if(response?.data.err === 0){
+      Swal.fire("Thành công","Đã thêm bài đăng mới", "success").then(() =>{
+        setPayload({
+          categoryCode: '',
+          description: '',
+          title: '',
+          priceNumber: 0,
+          acreageNumber: 0,
+          images: '',
+          address: '',
+          priceCode: '',
+          acreageCode: '',
+          target: '',
+          province: ''
+        })
+      })
+    }else{
+      Swal.fire("Oops !","Có lỗi rùi...", "error")
+    }
+    }
   }
 
   return (
@@ -54,8 +77,8 @@ const CreatePost = () => {
         đẩy tin lên cao thay vì đăng tin mới. Tin đăng trùng nhau sẽ không được duyệt.</p>
       <div className="system-createPost__box row">
        <div className='system-createPost__box--inner row'>
-          <div className="system-createPost__address"><Address payload={payload} setPayload={setPayload}/></div>
-          <div className="system-create__overview"><Overview payload={payload} setPayload={setPayload}/></div>
+          <div className="system-createPost__address"><Address setInvalidFields={setInvalidFields} invalidFields={invalidFields} payload={payload} setPayload={setPayload}/></div>
+          <div className="system-create__overview"><Overview setInvalidFields={setInvalidFields} invalidFields={invalidFields} payload={payload} setPayload={setPayload}/></div>
        </div>
        <div className='system-createPost__box--map'><MapCreatePost/></div>
       </div>

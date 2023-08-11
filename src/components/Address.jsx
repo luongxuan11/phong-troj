@@ -2,7 +2,7 @@ import {React, memo, useEffect, useState} from 'react'
 import Select from './Select'
 import { apiGetProvince, apiGetDistrict, apiGetWard } from '../services'
 
-const Address = ({setPayload}) => {
+const Address = ({setPayload, invalidFields, setInvalidFields}) => {
   const [provinces, setProvinces] = useState([])
   const [districts, setDistricts] = useState([])
   const [wards, setWards] = useState([])
@@ -49,7 +49,7 @@ const Address = ({setPayload}) => {
   useEffect(() =>{
     setPayload(prev =>({
       ...prev,
-      address: `${ward ? `${wards?.find(item => item.ward_id === ward).ward_name} -` : ''} ${district ? `${districts?.find(item => item.district_id === district).district_name} -` : ""} ${province ? `${provinces?.find(item => item.province_id === province).province_name}` : ""}`,
+      address: `${ward ? `${wards?.find(item => item.ward_id === ward).ward_name} - ` : ''}${district ? `${districts?.find(item => item.district_id === district).district_name} - ` : ""}${province ? `${provinces?.find(item => item.province_id === province).province_name}` : ""}`,
       province: `${province ? `${provinces?.find(item => item.province_id === province).province_name}` : ""}`
 
     }))
@@ -60,13 +60,13 @@ const Address = ({setPayload}) => {
         <h2 className='system-address__heading'>Địa chỉ cho thuê</h2>
         <div className="system-address__select__box row">
          <div className="system-address__select__box--inner row">
-            <Select type="province" value={province} setValue={setProvince} options={provinces} label={'Tỉnh/Thành phố'}/>
-            <Select type="district" value={district} setValue={setDistrict} options={districts} label={'Quận/Huyện'}/>
-            <Select type="ward" value={ward} setValue={setWard} options={wards} label={'Phường/Xã'}/>
+            <Select setInvalidFields={setInvalidFields} invalidFields={invalidFields} type="province" value={province} setValue={setProvince} options={provinces} label={'Tỉnh/Thành phố'}/>
+            <Select setInvalidFields={setInvalidFields} invalidFields={invalidFields} type="district" value={district} setValue={setDistrict} options={districts} label={'Quận/Huyện'}/>
+            <Select setInvalidFields={setInvalidFields} invalidFields={invalidFields} type="ward" value={ward} setValue={setWard} options={wards} label={'Phường/Xã'}/>
          </div>
          <div className="system-address__select__box--exactly">
             <p>Địa chỉ chính xác</p>
-            <input className='row'  type="text" value={`${ward ? `${wards?.find(item => item.ward_id === ward).ward_name} -` : ''} ${district ? `${districts?.find(item => item.district_id === district).district_name} -` : ""} ${province ? `${provinces?.find(item => item.province_id === province).province_name}.` : ""}`} readOnly />
+            <input className='row'  type="text" value={`${ward ? `${wards?.find(item => item.ward_id === ward).ward_name} - ` : ''}${district ? `${districts?.find(item => item.district_id === district).district_name} - ` : ""}${province ? `${provinces?.find(item => item.province_id === province).province_name}.` : ""}`} readOnly/>
          </div>
         </div>
     </>
