@@ -406,6 +406,34 @@
         }
       }
     }
+
+    .system-manage{
+      height: 100%;
+      padding: 70px 50px 100px 290px;
+      width: calc(100% - 0px);
+      .manage__heading__box{
+        justify-content: space-between;
+        .manage__heading{
+          font-size: 3rem;
+        }
+        padding-bottom: 20px;
+        margin-bottom: 15px;
+        border-bottom: 1px solid;
+      }
+      &__table{
+        width: 100%;
+        border: 1px solid;
+        th{
+          padding: 15px 0;
+          border: 1px solid;
+        }
+        .missing-post{
+          padding: 10px;
+          font-size: 1.5rem;
+          font-weight: 400;
+        }
+      }
+    }
   }
 }
 .select--error {

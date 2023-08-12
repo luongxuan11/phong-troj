@@ -1,5 +1,5 @@
 import actionTypes from "./actionTypes";
-import { apiGetPosts, apiGetPostsLimit, apiGetNewPosts } from "../../services/post";
+import { apiGetPosts, apiGetPostsLimit, apiGetNewPosts, apiGetPostsLimitAdmin } from "../../services/post";
 
 
 export const getPosts = () => async (dispatch) => {  // export ra file list
@@ -28,10 +28,37 @@ export const getPosts = () => async (dispatch) => {  // export ra file list
     }
 }
 
+export const getPostsLimitAdmin = (query) => async (dispatch) => {  // export ra file list
+    // console.log(query)
+    try {
+    const response = await apiGetPostsLimitAdmin(query)
+        // console.log(response)
+    if(response?.data.err === 0){   // sau khi từ file List gửi xuống thì check ở đây
+        dispatch({  // nêú không có lỗi thì sẽ gửi lên reducer 
+            type: actionTypes.GET_POST_LIMIT_ADMIN,
+            posts: response.data.res.rows,  //post này bên reducer có action để chấm tớn
+            count: response.data.res?.count
+        })
+    } else{
+        dispatch({  //err =1 thì vào đây
+            type: actionTypes.GET_POST_LIMIT_ADMIN,
+            mess: response.data.mess, // bên reducer
+            posts: null
+        })
+    }
+    } catch (error) {
+        dispatch({
+            type: actionTypes.GET_POST_LIMIT_ADMIN,
+            posts: null
+        })
+    }
+}
+
+
 export const getPostsLimit = (query) => async (dispatch) => {  // export ra file list
     // console.log(query)
     try {
-    const response = await apiGetPostsLimit(query)
+    const response = await apiGetPostsLimitAdmin(query)
         // console.log(response)
     if(response?.data.err === 0){   // sau khi từ file List gửi xuống thì check ở đây
         dispatch({  // nêú không có lỗi thì sẽ gửi lên reducer 
