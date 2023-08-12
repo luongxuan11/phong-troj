@@ -58,7 +58,7 @@ export const getPostsLimitAdmin = (query) => async (dispatch) => {  // export ra
 export const getPostsLimit = (query) => async (dispatch) => {  // export ra file list
     // console.log(query)
     try {
-    const response = await apiGetPostsLimitAdmin(query)
+    const response = await apiGetPostsLimit(query)
         // console.log(response)
     if(response?.data.err === 0){   // sau khi từ file List gửi xuống thì check ở đây
         dispatch({  // nêú không có lỗi thì sẽ gửi lên reducer 
