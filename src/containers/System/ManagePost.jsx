@@ -1,17 +1,25 @@
-import React, { useEffect } from "react";
-import { Button } from "../../components";
+import React, { useEffect, useState } from "react";
+import { Button, UpdatePost } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../store/actions";
 import { Link, json } from "react-router-dom";
 import { path } from "../../utilities/constant";
+import moment from "moment";
 
 const ManagePost = () => {
   const dispatch = useDispatch();
-
+  const [isEdit, setIsEdit] = useState(false)
   const { postOfCurrent } = useSelector((state) => state.post);
   useEffect(() => {
     dispatch(actions.getPostsLimitAdmin());
   }, []);
+
+  const checkStatus = (dateTime) =>{
+    let today = new Date().toDateString()
+    console.log(moment(dateTime, process.env.REACT_APP_FORMAT_DATE).isSameOrAfter(today))
+    return moment(dateTime, process.env.REACT_APP_FORMAT_DATE).isSameOrAfter(today)
+  }
+
   return (
     <div className="system-manage">
       <div className="manage__heading__box row">
@@ -25,13 +33,30 @@ const ManagePost = () => {
       </div>
       <div className="system-manage__table">
         <div className="table__title row">
-          <p className="row code">Mã tin</p>
-          <p className="row img">Ảnh đại diện</p>
-          <p className="row title">Tiêu đề</p>
-          <p className="row price">Giá</p>
-          <p className="row day-start">Ngày bắt đầu</p>
-          <p className="row day-end">Ngày hết hạn</p>
-          <p className="row status">Trạng thái</p>
+          <div className="table__title-box row code">
+            <p className="ellipsis">Mã tin</p>
+          </div>
+          <div className="table__title-box img row">
+            <p className="ellipsis">Ảnh đại diện</p>
+          </div>
+          <div className="table__title-box row title">
+            <p className="ellipsis">Tiêu đề</p>
+          </div>
+          <div className="table__title-box row price">
+            <p className="ellipsis">Giá</p>
+          </div>
+          <div className="table__title-box row day-start">
+            <p className="ellipsis">Ngày bắt đầu</p>
+          </div>
+          <div className="table__title-box row day-end">
+            <p className="ellipsis">Ngày hết hạn</p>
+          </div>
+          <div className="table__title-box row status">
+            <p className="ellipsis">Trạng thái</p>
+          </div>
+          <div className="table__title-box row setting">
+            <p className="ellipsis">Tùy chọn</p>
+          </div>
         </div>
         <div className="table__content row">
           {postOfCurrent.length > 0 ? (
@@ -48,7 +73,11 @@ const ManagePost = () => {
                     {item?.overviews?.created}
                   </p>
                   <p className="day-end ellipsis">{item?.overviews?.expire}</p>
-                  <p className="status">{item?.overviews?.expire}</p>
+                  <p className="status">{checkStatus(item?.overviews?.expire?.split(',')[1].split(' ')[2]) ? "Đang hoạt động" : "Đã hết hạn"}</p>
+                  <div className="setting row">
+                    <Button text={'sửa'} onClick={() => setIsEdit(true)} btnClass={'setting__btn--config'}/>
+                    <Button text={'xóa'} btnClass={'setting__btn--delete'}/>
+                  </div>
                 </div>
               );
             })
@@ -61,6 +90,7 @@ const ManagePost = () => {
           )}
         </div>
       </div>
+      {isEdit && <UpdatePost setIsEdit={setIsEdit}/>}
     </div>
   );
 };

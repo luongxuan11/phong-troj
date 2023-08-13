@@ -5,6 +5,7 @@ import {
   AiTwotoneStar,
   AiOutlineHeart,
   AiFillHeart,
+  AiOutlineCloseCircle
 } from "react-icons/ai";
 import { CiLocationOn } from "react-icons/ci";
 import { TbReportMoney } from "react-icons/tb";
@@ -42,6 +43,7 @@ const icons = {
   RiFilePaper2Line,
   BiMessageRounded,
   FcSwitchCamera,
-  RiDeleteBin5Line
+  RiDeleteBin5Line,
+  AiOutlineCloseCircle
 };
 export default icons;

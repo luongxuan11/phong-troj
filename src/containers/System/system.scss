@@ -424,15 +424,15 @@
         width: 100%;
         border: 2px solid;
         .table__title {
-          p {
+          .table__title-box{
             border: 1px solid;
             padding: 10px;
-            font-weight: 600;
             height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
+            justify-content: center;            
+            p{
+              font-weight: 600;
+              font-size: clamp(1.6rem, 1.8rem, 2rem);
+            }
           }
         }
 
@@ -458,7 +458,7 @@
               text-align: center;
             }
             img {
-              width: 70%;
+              width: 50%;
               aspect-ratio: 2/2;
               object-fit: cover;
             }
@@ -467,14 +467,13 @@
         .price,
         .day-start,
         .day-end {
-          width: 13%;
+          width: 11%;
         }
         .img {
           width: 10%;
         }
         .code {
           width: 6%;
-          background: rgb(249, 249, 0);
           color: #000;
         }
         .title {
@@ -489,9 +488,24 @@
         .img,
         .code,
         .title,
-        .status {
+        .status, .setting{
           min-width: 60px;
           line-height: 1.4;
+        }
+        .setting{
+          width: 8%;
+          border: 1px solid;
+          height: 100px;
+          font-weight: 600;
+          padding: 5px;
+          justify-content: space-around;
+          min-width: 97px;
+          &__btn--config{
+            background: green;
+          }
+          &__btn--delete{
+            background: rgb(224, 15, 15);
+          }
         }
       }
     }

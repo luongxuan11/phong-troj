@@ -39,13 +39,13 @@ button {
   display: inline-flex;
   align-items: center;
 }
-.cursor{
+.cursor {
   cursor: pointer;
 }
 a {
   text-decoration: none;
 }
-input{
+input {
   outline: none;
 }
 .btn {
@@ -63,7 +63,6 @@ span {
 //end common
 
 .home {
-  border: 1px solid red;
   width: 100%;
 
   // home header
@@ -81,7 +80,7 @@ span {
       &__manage {
         background-color: #122add;
       }
-      &__manage__model{
+      &__manage__model {
         position: absolute;
         top: 45px;
         right: 95px;
@@ -92,12 +91,12 @@ span {
         overflow: hidden;
         justify-content: start;
         padding: 10px 0;
-        .cursor{
+        .cursor {
           padding: 15px 20px;
           width: 100%;
           color: #fff;
           gap: 10px;
-          &:hover{
+          &:hover {
             background-color: #dadada;
             color: #f73859;
           }
@@ -264,7 +263,7 @@ span {
   }
 }
 
-.messAndSporter{
+.messAndSporter {
   position: fixed;
   bottom: 90px;
   right: 25px;
@@ -273,7 +272,7 @@ span {
   border-radius: 50%;
   background: #f83859;
   justify-content: center;
-  &:hover{
+  &:hover {
     cursor: pointer;
   }
 }

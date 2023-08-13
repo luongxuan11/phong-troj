@@ -5,8 +5,11 @@ import { useSelector } from 'react-redux'
 import Swal from 'sweetalert2'
 import { apiCreatePost } from '../../services'
 import { validate } from '../public/validate'
+import icons from '../../utilities/icons'
 
-const CreatePost = () => {
+const {AiOutlineCloseCircle} = icons
+
+const CreatePost = ({isEdit, setIsEdit}) => {
 
   const [payload, setPayload] = useState({
     categoryCode: '',
@@ -71,7 +74,12 @@ const CreatePost = () => {
 
   return (
     <div className='system-createPost'>
-      <h1 className='system-createPost__heading'>Đăng tin mới</h1>
+      {!isEdit ? <h1 className='system-createPost__heading'>Đăng tin mới</h1> 
+      : <div className='row'>
+          <h1 className='system-createPost__heading update-post__heading'>Chỉnh sửa tin đăng</h1>
+          <AiOutlineCloseCircle onClick={() => setIsEdit(false)} className='close-icon'/>
+        </div>}
+      
       <p className='potUp'>Nếu bạn đã từng đăng tin trên Phongtro123.com, 
        hãy sử dụng chức năng ĐẨY TIN / GIA HẠN / NÂNG CẤP VIP trong mục QUẢN LÝ TIN ĐĂNG để làm mới, 
         đẩy tin lên cao thay vì đăng tin mới. Tin đăng trùng nhau sẽ không được duyệt.</p>
@@ -80,9 +88,9 @@ const CreatePost = () => {
           <div className="system-createPost__address"><Address setInvalidFields={setInvalidFields} invalidFields={invalidFields} payload={payload} setPayload={setPayload}/></div>
           <div className="system-create__overview"><Overview setInvalidFields={setInvalidFields} invalidFields={invalidFields} payload={payload} setPayload={setPayload}/></div>
        </div>
-       <div className='system-createPost__box--map'><MapCreatePost/></div>
+       {!isEdit && <div className='system-createPost__box--map'><MapCreatePost/></div>}
       </div>
-      <Button text={'Túc tiệp'} onClick={handleSubmit} btnClass={'system-createPost__btn'}/>
+      <Button text={'Túc tiệp'} onClick={handleSubmit} btnClass={isEdit ? "update-post__submit" : 'system-createPost__btn'}/>
     </div>
   )
 }
