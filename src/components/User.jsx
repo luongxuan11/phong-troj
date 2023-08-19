@@ -1,14 +1,15 @@
 import React, { memo } from 'react'
 import icons from '../utilities/icons'
 import avatar from '../../src/assets/avatar.jpg'
+import { blobToBase64 } from '../utilities/common/tob64'
 
 const {BsFacebook} = icons
 const User = ({currentData}) => {
-    console.log(currentData)
+    // console.log(currentData)
   return (
     <div className='info-user row'>
         <div className="info-user__image">
-            <img src={currentData?.avatar || avatar} title={currentData?.userName} alt='hinh anh' />
+            <img src={blobToBase64(currentData?.avatar) || avatar} title={currentData?.userName} alt='hinh anh' />
         </div>
         <div className="info-user__wrapper row">
             <p className="info-user__welcome">Xin chào: <strong>{currentData?.userName}</strong></p>

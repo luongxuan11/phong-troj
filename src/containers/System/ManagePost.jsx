@@ -5,28 +5,65 @@ import * as actions from "../../store/actions";
 import { Link, json } from "react-router-dom";
 import { path } from "../../utilities/constant";
 import moment from "moment";
+import { apiDeletePost } from "../../services";
+import Swal from "sweetalert2";
 
 const ManagePost = () => {
   const dispatch = useDispatch();
-  const [isEdit, setIsEdit] = useState(false)
-  const { postOfCurrent } = useSelector((state) => state.post);
+  const [isEdit, setIsEdit] = useState(false);
+  const [updateData, setUpdateData] = useState(false)
+  const [status, setStatus] = useState('')
+  const { postOfCurrent} = useSelector((state) => state.post);
+  const [postCurrent, setPostCurrent] = useState([])
+  useEffect(() =>{
+    setPostCurrent(postOfCurrent)
+  }, [postOfCurrent])
+
   useEffect(() => {
     dispatch(actions.getPostsLimitAdmin());
-  }, []);
+  }, [isEdit, updateData]);
 
-  const checkStatus = (dateTime) =>{
-    let today = new Date().toDateString()
-    console.log(moment(dateTime, process.env.REACT_APP_FORMAT_DATE).isSameOrAfter(today))
-    return moment(dateTime, process.env.REACT_APP_FORMAT_DATE).isSameOrAfter(today)
+  const checkStatus = (dateTime) => {
+    let today = new Date().toLocaleString().split(" ")[1];
+    let formatToday = moment(today, process.env.REACT_APP_FORMAT_DATE);
+    let formatTime = moment(dateTime, process.env.REACT_APP_FORMAT_DATE); // 3 tham số: 1. ngày giờ được tạo, 2. định dạng, 3. chế độ kiểm tra tính hợp lệ
+    return formatTime.isSameOrAfter(formatToday)
+  };
+
+  const handleDelete = async (postId) =>{
+    const response = await apiDeletePost(postId)
+    if(response.data.err === 0){
+      Swal.fire("Thành công","Đã xóa bài đăng", "success").then(() =>{
+        setUpdateData(prev => !prev)
+      })
+    }else{
+      Swal.fire("Oops !","Có lỗi rùi...", "error")
+    }
   }
+
+  // status
+ useEffect(() =>{
+  console.log(status)
+    if(status === 1){
+      const activePost = postOfCurrent?.filter(item => checkStatus(item?.overviews?.expire?.split(",")[2]))
+      setPostCurrent(activePost)
+    }else if(status === 2){
+      const expirePost = postOfCurrent?.filter(item => !checkStatus(item?.overviews?.expire?.split(",")[2]))
+      setPostCurrent(expirePost)
+    }else if(status === 0){
+      setPostCurrent(postOfCurrent)
+    }
+ }, [status])
 
   return (
     <div className="system-manage">
       <div className="manage__heading__box row">
         <h1 className="manage__heading">Quản lý tin đăng</h1>
         <div className="manage__control">
-          <select name="" id="">
-            <option value="Lọc theo trạng thái">Lọc theo trạng thái</option>
+          <select onChange={e => setStatus(+e.target.value)} value={status} name="" id="">
+            <option value="">Lọc theo trạng thái</option>
+            <option value="1">Đang hoạt động</option>
+            <option value="2">Đã hết hạn</option>
           </select>
           <Button text={"Đăng tin mới"} btnClass={"manage-control__btn"} />
         </div>
@@ -59,8 +96,8 @@ const ManagePost = () => {
           </div>
         </div>
         <div className="table__content row">
-          {postOfCurrent.length > 0 ? (
-            postOfCurrent?.map((item) => {
+          {postCurrent.length > 0 ? (
+            postCurrent?.map((item) => {
               return (
                 <div key={item?.id} className="table__content-box row">
                   <p className="code">{item?.overviews?.code}</p>
@@ -73,10 +110,21 @@ const ManagePost = () => {
                     {item?.overviews?.created}
                   </p>
                   <p className="day-end ellipsis">{item?.overviews?.expire}</p>
-                  <p className="status">{checkStatus(item?.overviews?.expire?.split(',')[1].split(' ')[2]) ? "Đang hoạt động" : "Đã hết hạn"}</p>
+                  <p className="status">
+                    {checkStatus(item?.overviews?.expire?.split(",")[2])
+                      ? "Đang hoạt động"
+                      : "Đã hết hạn"}
+                  </p>
                   <div className="setting row">
-                    <Button text={'sửa'} onClick={() => setIsEdit(true)} btnClass={'setting__btn--config'}/>
-                    <Button text={'xóa'} btnClass={'setting__btn--delete'}/>
+                    <Button
+                      text={"sửa"}
+                      onClick={() => {
+                        setIsEdit(true);
+                        dispatch(actions.dataEdit(item))
+                      }}
+                      btnClass={"setting__btn--config"}
+                    />
+                    <Button text={"xóa"} onClick={() => handleDelete(item.id)} btnClass={"setting__btn--delete"} />
                   </div>
                 </div>
               );
@@ -90,7 +138,7 @@ const ManagePost = () => {
           )}
         </div>
       </div>
-      {isEdit && <UpdatePost setIsEdit={setIsEdit}/>}
+      {isEdit && <UpdatePost setIsEdit={setIsEdit} />}
     </div>
   );
 };

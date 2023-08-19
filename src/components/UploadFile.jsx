@@ -1,11 +1,13 @@
-import React, { memo, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import icons from '../utilities/icons'
 import { apiUploadImages } from '../services/post'
 import Loading from './Loading'
+import { useSelector } from 'react-redux'
 
     const {FcSwitchCamera, RiDeleteBin5Line} = icons
 
 const UploadFile = ({id, type, payload ,setPayload, setInvalidFields, invalidFields}) => {
+  const {dataEdit} = useSelector(state => state.post)
   const [preview, setPreview] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const handleFiles = async (e) =>{
@@ -28,6 +30,12 @@ const UploadFile = ({id, type, payload ,setPayload, setInvalidFields, invalidFie
     setPreview(prev => [...prev, ...arrayImages])
     setPayload(prev => ({...prev, images: [...payload,...arrayImages]}))
   }
+  useEffect(() =>{
+    if(dataEdit){
+      let images = JSON.parse(dataEdit?.images?.image)
+      images && setPreview(images)
+    }
+  }, [dataEdit])
   const handleDeleteImage = (image) =>{
     setPreview(prev => prev?.filter(item => item !== image))
     setPayload(prev => ({

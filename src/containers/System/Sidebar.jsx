@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom'
 import icons from '../../utilities/icons'
 import { useDispatch } from 'react-redux'
 import * as actions from '../../store/actions'
+import { blobToBase64 } from '../../utilities/common/tob64'
     const {FiLogOut} = icons
 
     const activeStyle = 'system-sidebar__control--active row'
@@ -17,7 +18,7 @@ const Sidebar = ({currentData}) => {
   return (
     <div className='system-sidebar'>
         <div className="system-sidebar__info row">
-            <img src={currentData?.avatar || avartar} alt="avatar" />
+            <img src={blobToBase64(currentData?.avatar) || avartar} alt="avatar" />
             {/* src={avartar}  */}
             <div className="system-sidebar__detail row">
                 <p className="system-sidebar__useName">{currentData?.userName}</p>

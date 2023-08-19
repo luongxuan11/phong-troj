@@ -1,3 +1,4 @@
+import { dataEdit } from "../actions";
 import actionTypes from "../actions/actionTypes";
 
 const initState = {
@@ -5,7 +6,8 @@ const initState = {
   mess: "",
   count: 0,
   newPost: [],
-  postOfCurrent: []
+  postOfCurrent: [],
+  dataEdit: null
 };
 
 const postReducer = (state = initState, action) => {
@@ -29,6 +31,16 @@ const postReducer = (state = initState, action) => {
         ...state,
         mess: action.mess || "",
         postOfCurrent: action.posts || []
+      }
+    case actionTypes.EDIT_DATA:
+      return{
+        ...state,
+        dataEdit: action.dataEdit || {}
+      }
+    case actionTypes.RESEST_DATA_EDIT:
+      return{
+        ...state,
+        dataEdit: null
       }
 
     default:

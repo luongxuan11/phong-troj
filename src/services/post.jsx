@@ -80,7 +80,35 @@ export const apiGetPosts = () =>
       const response = await axiosConfig({
         method: "get",
         url: `/api/v1/post/limit-admin`,
-        params: query
+        params: query // req.query ở đây // phương thức get or delete thì sẽ truyền bằng query: params
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+
+  export const apiUpdatePost = (payload) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await axiosConfig({
+        method: "put",
+        url: `/api/v1/post/update`,
+        data: payload // phương thức put or post thì sẽ dùng body để gửi data
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+
+  export const apiDeletePost = (postId) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await axiosConfig({
+        method: "delete",
+        url: `/api/v1/post/delete`,
+        params: {postId} // nhận được 1 obj các trường để xóa
       });
       resolve(response);
     } catch (error) {

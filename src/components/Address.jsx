@@ -1,8 +1,10 @@
 import {React, memo, useEffect, useState} from 'react'
 import Select from './Select'
 import { apiGetProvince, apiGetDistrict, apiGetWard } from '../services'
+import { useSelector } from 'react-redux'
 
 const Address = ({setPayload, invalidFields, setInvalidFields}) => {
+  const {dataEdit} = useSelector(state => state.post)
   const [provinces, setProvinces] = useState([])
   const [districts, setDistricts] = useState([])
   const [wards, setWards] = useState([])
@@ -10,6 +12,34 @@ const Address = ({setPayload, invalidFields, setInvalidFields}) => {
   const [district, setDistrict] = useState()
   const [ward, setWard] = useState()
 
+  // manage post
+  useEffect(() =>{
+    if(dataEdit){
+      let addressArr = dataEdit?.address.split("-")
+    let foundProvince = provinces?.length > 0 && provinces?.find(item => item?.province_name === (addressArr[addressArr.length - 1].trim()))
+    setProvince(foundProvince ? foundProvince.province_id : "")
+    }
+  }, [provinces])
+  useEffect(() =>{
+    if(dataEdit){
+      let addressArr = dataEdit?.address.split("-")
+      if(addressArr.length >= 2){
+      let foundProvince = districts.length >= 2 && districts?.find(item => item.district_name === addressArr[addressArr.length - 2].trim())
+     setDistrict(foundProvince ? foundProvince?.district_id : "")
+    }
+    }
+  }, [districts])
+  useEffect(() =>{
+    if(dataEdit){
+      let addressArr = dataEdit?.address.split("-")
+    if(addressArr.length === 3){
+      let foundProvince = wards.length > 0 && wards?.find(item => item?.ward_name === addressArr[0].trim())
+      setWard(foundProvince ? foundProvince.ward_id : "")
+    }
+    }
+  }, [wards])
+  // end manage post
+  
   // province
   useEffect(() =>{
     const publicProvince = async() =>{
@@ -38,7 +68,7 @@ const Address = ({setPayload, invalidFields, setInvalidFields}) => {
     setWards([])
     const fetchPublicWard = async()=>{
       const response = await apiGetWard(district)
-      console.log(response)
+      // console.log(response)
       if(response.status === 200){
         setWards(response.data.results)
       }
@@ -66,7 +96,7 @@ const Address = ({setPayload, invalidFields, setInvalidFields}) => {
          </div>
          <div className="system-address__select__box--exactly">
             <p>Địa chỉ chính xác</p>
-            <input className='row'  type="text" value={`${ward ? `${wards?.find(item => item.ward_id === ward).ward_name} - ` : ''}${district ? `${districts?.find(item => item.district_id === district).district_name} - ` : ""}${province ? `${provinces?.find(item => item.province_id === province).province_name}.` : ""}`} readOnly/>
+            <input className='row'  type="text" value={`${ward ? `${wards?.find(item => item.ward_id === ward).ward_name} - ` : ''}${district ? `${districts?.find(item => item.district_id === district).district_name} - ` : ""}${province ? `${provinces?.find(item => item.province_id === province)?.province_name}.` : ""}`} readOnly/>
          </div>
         </div>
     </>

@@ -90,6 +90,7 @@ export const validate = (payload, setInvalidFields) => {
               mess: `Chưa nhập giá trị!`,
             },
           ]);
+          invalid += 1;
         };
         if (!+item[1]) {
           setInvalidFields((prev) => [
@@ -99,13 +100,12 @@ export const validate = (payload, setInvalidFields) => {
               mess: `Trường này phải là số`,
             },
           ]);
+          invalid += 1;
         }
         break;
       default:
         break;
     }
   });
-
-  // console.log('hihi', fields)
   return invalid;
 };

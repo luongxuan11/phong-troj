@@ -2,7 +2,7 @@ export const getNumber = (string) =>
 string
   .split(" ")
   .map((item) => +item)
-  .filter((item) => !item === false);
+  .filter((item) => !isNaN(item));
 
 // number acreage
 export const getNumberAcreage = (string) => {

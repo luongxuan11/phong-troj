@@ -1,11 +1,11 @@
 import React from 'react'
-import CreatePost from "../containers/System/CreatePost"
+import UploadPostModel from './UploadPostModel'
 
 const UpdatePost = ({setIsEdit}) => {
   return (
     <div className='update-post row'>
         <div className="update-post__wrapper">
-            <CreatePost setIsEdit={setIsEdit} isEdit/>
+            <UploadPostModel setIsEdit={setIsEdit} isEdit/>
         </div>
     </div>
   )

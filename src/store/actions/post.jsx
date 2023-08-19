@@ -107,3 +107,11 @@ export const getNewPost = () => async (dispatch) => {
         })
     }
 }
+
+export const dataEdit = (dataEdit) => ({ 
+    type: actionTypes.EDIT_DATA,
+    dataEdit
+})
+export const resestDataEdit = () => ({ 
+    type: actionTypes.RESEST_DATA_EDIT,
+})

@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
-import { Button, User } from "../../components";
+import { Button, User} from "../../components";
 import icons from "../../utilities/icons";
 import { menuManage } from "../../utilities/menuManage";
 import { path } from '../../utilities/constant'

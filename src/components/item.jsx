@@ -3,6 +3,8 @@ import icons from "../utilities/icons";
 import { Button } from "./index";
 import {useNavigate, Link} from 'react-router-dom'
 import {formatVietNamToString} from '../utilities/common/formatVietNamToString'
+import avatar from "../assets/avatar.jpg"
+import { Buffer } from "buffer";
 
 
 const { AiTwotoneStar, AiOutlineHeart, AiFillHeart } = icons;
@@ -10,7 +12,7 @@ const { AiTwotoneStar, AiOutlineHeart, AiFillHeart } = icons;
 
 
 const Item = ({address, attribute, star, description, images, title, user, id}) => {
-  
+  // console.log(user)
   let navigate = useNavigate()
 
   // star
@@ -51,7 +53,7 @@ const Item = ({address, attribute, star, description, images, title, user, id}) 
         <div className="user-info row">
           <div className="row">
             <img
-              src="https://res.cloudinary.com/dsjwayuh5/image/upload/v1685280867/learn_nodejs/Facebook-Avatar_3_j87yyw.png"
+              src={avatar}
               alt={user?.userName}
               title={user?.userName}
               className="user"

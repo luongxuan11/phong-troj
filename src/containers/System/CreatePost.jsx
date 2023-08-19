@@ -1,16 +1,14 @@
-import {React, useState} from 'react'
+import {React, memo, useEffect, useState} from 'react'
 import {Address, Overview, MapCreatePost, Button} from '../../components'
 import { getCodes, getCodesAcreage } from '../../utilities/common/getCodePrices'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import Swal from 'sweetalert2'
 import { apiCreatePost } from '../../services'
 import { validate } from '../public/validate'
-import icons from '../../utilities/icons'
+import { resestDataEdit } from '../../store/actions'
 
-const {AiOutlineCloseCircle} = icons
-
-const CreatePost = ({isEdit, setIsEdit}) => {
-
+const CreatePost = () => {
+  const dispatch = useDispatch()
   const [payload, setPayload] = useState({
     categoryCode: '',
     description: '',
@@ -24,12 +22,16 @@ const CreatePost = ({isEdit, setIsEdit}) => {
     target: '',
     province: ''
   })
+  useEffect(() =>{
+    dispatch(resestDataEdit())
+  }, [])
   const {prices, acreages, categories} = useSelector(state => state.app)
   const {currentData} = useSelector(state => state.user)
   const [invalidFields, setInvalidFields] = useState([])
   // console.log(currentData)
+  // console.log(prices)
   const handleSubmit = async () =>{
-    let priceCodeArr = getCodes(+payload.priceNumber, prices, 1, 15)
+    let priceCodeArr = getCodes((+payload.priceNumber / Math.pow(10,6)), prices, 1, 15)
     let acreageCodeArr = getCodesAcreage(+payload.acreageNumber, acreages, 20, 90)
     let priceCode = priceCodeArr[0]?.code
     let acreageCode = acreageCodeArr[0]?.code
@@ -48,6 +50,7 @@ const CreatePost = ({isEdit, setIsEdit}) => {
       category
     }
     const result = validate(finalPayload, setInvalidFields)
+    console.log(result)
     if(result === 0){
       const response = await apiCreatePost(finalPayload)
     if(response?.data.err === 0){
@@ -71,14 +74,9 @@ const CreatePost = ({isEdit, setIsEdit}) => {
     }
     }
   }
-
   return (
     <div className='system-createPost'>
-      {!isEdit ? <h1 className='system-createPost__heading'>Đăng tin mới</h1> 
-      : <div className='row'>
-          <h1 className='system-createPost__heading update-post__heading'>Chỉnh sửa tin đăng</h1>
-          <AiOutlineCloseCircle onClick={() => setIsEdit(false)} className='close-icon'/>
-        </div>}
+      <h1 className='system-createPost__heading'>Đăng tin mới</h1>
       
       <p className='potUp'>Nếu bạn đã từng đăng tin trên Phongtro123.com, 
        hãy sử dụng chức năng ĐẨY TIN / GIA HẠN / NÂNG CẤP VIP trong mục QUẢN LÝ TIN ĐĂNG để làm mới, 
@@ -88,11 +86,11 @@ const CreatePost = ({isEdit, setIsEdit}) => {
           <div className="system-createPost__address"><Address setInvalidFields={setInvalidFields} invalidFields={invalidFields} payload={payload} setPayload={setPayload}/></div>
           <div className="system-create__overview"><Overview setInvalidFields={setInvalidFields} invalidFields={invalidFields} payload={payload} setPayload={setPayload}/></div>
        </div>
-       {!isEdit && <div className='system-createPost__box--map'><MapCreatePost/></div>}
+        <div className='system-createPost__box--map'><MapCreatePost/></div>
       </div>
-      <Button text={'Túc tiệp'} onClick={handleSubmit} btnClass={isEdit ? "update-post__submit" : 'system-createPost__btn'}/>
+      <Button text={'Túc tiệp'} onClick={handleSubmit} btnClass={'system-createPost__btn'}/>
     </div>
   )
 }
 
-export default CreatePost
+export default memo(CreatePost)
