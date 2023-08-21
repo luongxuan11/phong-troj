@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, UpdatePost } from "../../components";
+import { Button, UpdatePost, Loading } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../store/actions";
 import { Link, json } from "react-router-dom";
@@ -11,6 +11,7 @@ import Swal from "sweetalert2";
 const ManagePost = () => {
   const dispatch = useDispatch();
   const [isEdit, setIsEdit] = useState(false);
+  const [loading, setLoading] = useState(false)
   const [updateData, setUpdateData] = useState(false)
   const [status, setStatus] = useState('')
   const { postOfCurrent} = useSelector((state) => state.post);
@@ -18,7 +19,7 @@ const ManagePost = () => {
   useEffect(() =>{
     setPostCurrent(postOfCurrent)
   }, [postOfCurrent])
-
+  // console.log(postOfCurrent)
   useEffect(() => {
     dispatch(actions.getPostsLimitAdmin());
   }, [isEdit, updateData]);
@@ -30,8 +31,8 @@ const ManagePost = () => {
     return formatTime.isSameOrAfter(formatToday)
   };
 
-  const handleDelete = async (postId) =>{
-    const response = await apiDeletePost(postId)
+  const handleDelete = async (postId, fileName) =>{
+    const response = await apiDeletePost(postId, fileName)
     if(response.data.err === 0){
       Swal.fire("Thành công","Đã xóa bài đăng", "success").then(() =>{
         setUpdateData(prev => !prev)
@@ -43,7 +44,7 @@ const ManagePost = () => {
 
   // status
  useEffect(() =>{
-  console.log(status)
+  // console.log(status)
     if(status === 1){
       const activePost = postOfCurrent?.filter(item => checkStatus(item?.overviews?.expire?.split(",")[2]))
       setPostCurrent(activePost)
@@ -56,7 +57,8 @@ const ManagePost = () => {
  }, [status])
 
   return (
-    <div className="system-manage">
+    <>
+      <div className="system-manage">
       <div className="manage__heading__box row">
         <h1 className="manage__heading">Quản lý tin đăng</h1>
         <div className="manage__control">
@@ -124,7 +126,7 @@ const ManagePost = () => {
                       }}
                       btnClass={"setting__btn--config"}
                     />
-                    <Button text={"xóa"} onClick={() => handleDelete(item.id)} btnClass={"setting__btn--delete"} />
+                    <Button text={"xóa"} onClick={() => handleDelete(item.id, item?.images?.fileName)} btnClass={"setting__btn--delete"} />
                   </div>
                 </div>
               );
@@ -138,8 +140,10 @@ const ManagePost = () => {
           )}
         </div>
       </div>
-      {isEdit && <UpdatePost setIsEdit={setIsEdit} />}
+      {isEdit && <UpdatePost setLoading={setLoading} setIsEdit={setIsEdit} />}
     </div>
+      {loading && <Loading/>}
+    </>
   );
 };
 

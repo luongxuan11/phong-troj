@@ -15,13 +15,13 @@ export const apiGetPosts = () =>
     }
   });
 
-  export const apiGetPostsLimit = (query) =>
+export const apiGetPostsLimit = (query) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await axiosConfig({
         method: "get",
         url: `/api/v1/post/limit`,
-        params: query
+        params: query,
       });
       // console.log("check posts", response);
       resolve(response);
@@ -30,7 +30,7 @@ export const apiGetPosts = () =>
     }
   });
 
-  export const apiGetNewPosts = () =>
+export const apiGetNewPosts = () =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await axiosConfig({
@@ -44,13 +44,13 @@ export const apiGetPosts = () =>
     }
   });
 
-  export const apiUploadImages = (images) =>
+export const apiUploadImages = (images) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await axios({
         method: "post",
         url: `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`,
-        data: images
+        data: images,
       });
       // console.log("check posts", response);
       resolve(response);
@@ -59,28 +59,37 @@ export const apiGetPosts = () =>
     }
   });
 
-  export const apiCreatePost = (payload) =>
-  new Promise(async (resolve, reject) => {
-    try {
-      const response = await axiosConfig({
-        method: "post",
-        url: `/api/v1/post/create-new`,
-        data: payload
-      });
-      // console.log("check posts", response);
-      resolve(response);
-    } catch (error) {
-      reject(error);
-    }
-  });
+export const apiCreatePost = (payload) => new Promise(async (resolve, reject) => {
+  try {
+    const formData = new FormData();
+    Object.keys(payload).forEach((key) => {
+      if (key === "images" && payload[key].length > 0) {
+        for (let i = 0; i < payload[key].length; i++) {
+          formData.append(key, payload[key][i]);
+        }
+      } else {
+        formData.append(key, payload[key]);
+      }
+    });
+    const response = await axiosConfig({
+      method: "post",
+      url: "/api/v1/post/create-new",
+      data: formData,
+      headers: {"Content-Type": "multipart/form-data"},
+    });
+    resolve(response);
+  } catch (error) {
+    reject(error);
+  }
+});
 
-  export const apiGetPostsLimitAdmin = (query) =>
+export const apiGetPostsLimitAdmin = (query) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await axiosConfig({
         method: "get",
         url: `/api/v1/post/limit-admin`,
-        params: query // req.query ở đây // phương thức get or delete thì sẽ truyền bằng query: params
+        params: query, // req.query ở đây // phương thức get or delete thì sẽ truyền bằng query: params
       });
       resolve(response);
     } catch (error) {
@@ -88,27 +97,39 @@ export const apiGetPosts = () =>
     }
   });
 
-  export const apiUpdatePost = (payload) =>
+export const apiUpdatePost = (payload) =>
   new Promise(async (resolve, reject) => {
     try {
-      const response = await axiosConfig({
-        method: "put",
-        url: `/api/v1/post/update`,
-        data: payload // phương thức put or post thì sẽ dùng body để gửi data
-      });
-      resolve(response);
+      // console.log(payload)
+      const formData = new FormData();
+      Object.keys(payload).forEach((key) => {
+      if (key === "imageFile" && payload[key].length > 0) {
+        for (let i = 0; i < payload[key].length; i++) {
+          formData.append(key, payload[key][i]);
+        }
+      } else {
+        formData.append(key, payload[key]);
+      }
+    });
+    const response = await axiosConfig({
+      method: "put",
+      url: "/api/v1/post/update",
+      data: formData,
+      headers: {"Content-Type": "multipart/form-data"},
+    });
+     resolve(response);
     } catch (error) {
       reject(error);
     }
   });
 
-  export const apiDeletePost = (postId) =>
+export const apiDeletePost = (postId, fileName) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await axiosConfig({
         method: "delete",
         url: `/api/v1/post/delete`,
-        params: {postId} // nhận được 1 obj các trường để xóa
+        params: { postId, fileName }, // nhận được 1 obj các trường để xóa
       });
       resolve(response);
     } catch (error) {

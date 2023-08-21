@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 import Select from './Select'
 import { useSelector } from 'react-redux'
-import {Input, UploadFile} from './'
+import {Input, UploadFile} from '../components'
 
 const tagets = [
   {code: 'Tất cả', value: 'Tất cả'},

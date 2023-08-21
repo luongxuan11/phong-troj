@@ -82,22 +82,30 @@ export const validate = (payload, setInvalidFields) => {
         break;
       case "priceNumber":
       case "acreageNumber":
-        if (+item[1] === 0) {
+        if (+item[1] === 0 && +item[1] < 0) {
           setInvalidFields((prev) => [
             ...prev,
             {
               name: item[0],
-              mess: `Chưa nhập giá trị!`,
+              mess: `Trường không hợp lệ hoặc chưa nhập giá trị!`,
             },
           ]);
           invalid += 1;
-        };
-        if (!+item[1]) {
+        }else if (!+item[1]) {
           setInvalidFields((prev) => [
             ...prev,
             {
               name: item[0],
               mess: `Trường này phải là số`,
+            },
+          ]);
+          invalid += 1;
+        }else if (!+item[1] < 0) {
+          setInvalidFields((prev) => [
+            ...prev,
+            {
+              name: item[0],
+              mess: `Không được nhập số âm`,
             },
           ]);
           invalid += 1;

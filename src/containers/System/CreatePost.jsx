@@ -6,6 +6,7 @@ import Swal from 'sweetalert2'
 import { apiCreatePost } from '../../services'
 import { validate } from '../public/validate'
 import { resestDataEdit } from '../../store/actions'
+import { Loading } from '../../components'
 
 const CreatePost = () => {
   const dispatch = useDispatch()
@@ -28,6 +29,7 @@ const CreatePost = () => {
   const {prices, acreages, categories} = useSelector(state => state.app)
   const {currentData} = useSelector(state => state.user)
   const [invalidFields, setInvalidFields] = useState([])
+  const [loading, setLoading] = useState(false)
   // console.log(currentData)
   // console.log(prices)
   const handleSubmit = async () =>{
@@ -47,13 +49,14 @@ const CreatePost = () => {
       acreageNumber: +payload.acreageNumber,
       target: payload.target || 'Tất cả',
       labelCode: labelCode,
-      category
+      category,
     }
     const result = validate(finalPayload, setInvalidFields)
-    console.log(result)
     if(result === 0){
+      setLoading(true)
       const response = await apiCreatePost(finalPayload)
     if(response?.data.err === 0){
+      setLoading(false)
       Swal.fire("Thành công","Đã thêm bài đăng mới", "success").then(() =>{
         setPayload({
           categoryCode: '',
@@ -70,12 +73,15 @@ const CreatePost = () => {
         })
       })
     }else{
+      setLoading(false)
       Swal.fire("Oops !","Có lỗi rùi...", "error")
     }
-    }
+  }
+  // console.log(finalPayload)
   }
   return (
-    <div className='system-createPost'>
+    <>
+      <div className='system-createPost'>
       <h1 className='system-createPost__heading'>Đăng tin mới</h1>
       
       <p className='potUp'>Nếu bạn đã từng đăng tin trên Phongtro123.com, 
@@ -89,7 +95,9 @@ const CreatePost = () => {
         <div className='system-createPost__box--map'><MapCreatePost/></div>
       </div>
       <Button text={'Túc tiệp'} onClick={handleSubmit} btnClass={'system-createPost__btn'}/>
-    </div>
+     </div>
+     {loading && <Loading/>}
+    </>
   )
 }
 

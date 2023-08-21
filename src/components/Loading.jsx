@@ -1,18 +1,24 @@
-import React, { memo } from 'react'
-import './efect.scss'
+import React, { memo } from "react";
+import "./efect.scss";
 
 const Loading = () => {
   return (
-    <div className='loading'>
-        <svg className="pl" width="240" height="240" viewBox="0 0 240 240">
-	        <circle className="pl__ring pl__ring--a" cx="120" cy="120" r="105" fill="none" stroke="#000" strokeWidth="20" strokeDasharray="0 660" strokeDashoffset="-330" strokeLinecap="round"></circle>
-	        <circle className="pl__ring pl__ring--b" cx="120" cy="120" r="35" fill="none" stroke="#000" strokeWidth="20" strokeDasharray="0 220" strokeDashoffset="-110" strokeLinecap="round"></circle>
-	        <circle className="pl__ring pl__ring--c" cx="85" cy="120" r="70" fill="none" stroke="#000" strokeWidth="20" strokeDasharray="0 440" strokeLinecap="round"></circle>
-	        <circle className="pl__ring pl__ring--d" cx="155" cy="120" r="70" fill="none" stroke="#000" strokeWidth="20" strokeDasharray="0 440" strokeLinecap="round"></circle>
-        </svg>
-        <span>Đang tải lên...</span>
+    <div className="loading_box row">
+      <div class="progress">
+        <div class="inner"></div>
+      </div>
+      <div class="loader">
+       <p>Đang tải lên..</p>
+       <div class="words">
+           <span class="word">Chờ một chút!</span>
+           <span class="word">Chờ một chút!</span>
+           <span class="word">Phòng trọ123</span>
+           <span class="word">Nhanh chóng</span>
+           <span class="word">Bảo mật</span>
+       </div>
+</div>
     </div>
-  )
-}
+  );
+};
 
-export default memo(Loading)
+export default memo(Loading);

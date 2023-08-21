@@ -7,9 +7,10 @@ import { apiCreatePost, apiUpdatePost } from '../services'
 import { validate } from '../containers/public/validate'
 import icons from '../utilities/icons'
 import { resestDataEdit } from '../store/actions'
+
 const {AiOutlineCloseCircle} = icons
 
-const UploadPostModel = ({isEdit, setIsEdit}) => {
+const UploadPostModel = ({isEdit, setIsEdit, setLoading}) => {
   const {dataEdit} = useSelector(state => state.post)
   const dispatch = useDispatch()
   const [payload, setPayload] = useState(() => {
@@ -24,10 +25,12 @@ const UploadPostModel = ({isEdit, setIsEdit}) => {
       priceCode: dataEdit?.pricesCode || "",
       acreageCode: dataEdit?.acreagesCode || "",
       target: dataEdit?.overviews?.target || "",
-      province: dataEdit?.province || ""
+      province: dataEdit?.province || "",
+      fileName: dataEdit?.images?.fileName,
     }
     return initData
   })
+  
   const {prices, acreages, categories} = useSelector(state => state.app)
   const {currentData} = useSelector(state => state.user)
   const [invalidFields, setInvalidFields] = useState([])
@@ -38,7 +41,18 @@ const UploadPostModel = ({isEdit, setIsEdit}) => {
     let acreageCode = acreageCodeArr[0]?.code
     let labelCode = `${categories?.find(item => item.code === payload?.categoryCode)?.value} tại ${payload?.address?.split(" - ")?.slice(0, 2)}`
     let category = categories?.find(item => item.code === payload?.categoryCode)?.value
-    // console.log(category)
+    // console.log(payload?.images)
+    let imageLink = [];
+    let imageFile = []
+
+    payload?.images.forEach(item => {
+      if (typeof item === "string" && item.includes("https")) {
+        imageLink.push(item);
+      }else{
+        imageFile.push(item)
+      }
+    });
+ 
     let finalPayload = {
       ...payload,
       priceCode,
@@ -52,13 +66,16 @@ const UploadPostModel = ({isEdit, setIsEdit}) => {
       imageId: dataEdit?.imageId,
       attributeId: dataEdit?.attributeId,
       overviewId: dataEdit?.overviewId,
-      postId: dataEdit?.id
+      postId: dataEdit?.id,
+      imageLink,
+      imageFile,
+      images: imageLink
     }
-    // console.log(finalPayload)
+    // console.log(finalPayload.deletedItem)
     const result = validate(finalPayload, setInvalidFields)
-    console.log(result)
+    // console.log(result)
     if(result === 0){
-      console.log(finalPayload)
+      setLoading(true)
       const response = await apiUpdatePost(finalPayload)
     if(response?.data.err === 0){
       Swal.fire("Thành công","Chỉnh sửa thành công", "success").then(() =>{
@@ -78,14 +95,16 @@ const UploadPostModel = ({isEdit, setIsEdit}) => {
       })
       dispatch(resestDataEdit())
       setIsEdit(false)
+      setLoading(false)
     }else{
+      setLoading(false)
       Swal.fire("Oops !","Có lỗi rùi...", "error")
     }
     }
   }
 
   return (
-    <div className='system-createPost'>
+      <div className='system-createPost'>
       <div className='row'>
           <h1 className='system-createPost__heading update-post__heading'>Chỉnh sửa tin đăng</h1>
           <AiOutlineCloseCircle onClick={() => setIsEdit(false)} className='close-icon'/>
