@@ -20,7 +20,7 @@ const Home = () => {
 
 // Kiểm tra location.pathname để xác định các trang không hiển thị Search
    useEffect(() => {
-    (location.pathname.includes("/login") || location.pathname.includes("/register") || location.pathname.includes("/chi-tiet")) ? setShowSearch(false) : setShowSearch(true);
+    (location.pathname.includes("/login") || location.pathname.includes("/register") || location.pathname.includes("/chi-tiet") || location.pathname.includes("/lien-he")) ? setShowSearch(false) : setShowSearch(true);
  }, [location]);
 
  // gọi api với useEffect

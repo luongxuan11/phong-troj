@@ -3,7 +3,7 @@ import { Routes, Route} from "react-router-dom";
 import { Home, Login, HomeTitle, DetailPost } from "./containers/public";
 import {SearchDetail} from "./containers/smallComponent"
 import { path } from "./utilities/constant";
-import {ChoThueAll} from './containers/public'
+import {ChoThueAll, Contact} from './containers/public'
 import {System, CreatePost, ManagePost, EditAccount} from './containers/System'
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "./store/actions"
@@ -41,6 +41,7 @@ function App() {
           <Route path={path.NHA_CHO_THUE} element={<ChoThueAll />} />
           <Route path={path.SEARCH} element={<SearchDetail/>}/>
           <Route path={path.DETAIL_POST__TITLE__POSTID} element={<DetailPost />} />
+          <Route path={path.CONTACT} element={<Contact />} />
           <Route path={"chi-tiet/*"} element={<DetailPost />} />
         </Route>
         <Route path={path.SYSTEM} element={<System/>}>

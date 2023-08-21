@@ -49,7 +49,7 @@ export const menuManageSystem = [
     {
         id: 5,
         text: 'Liên hệ',
-        path: '/he-thong/lien-he',
+        path: '/lien-he',
         icon: <BiMessageRounded/>
     },
 ]

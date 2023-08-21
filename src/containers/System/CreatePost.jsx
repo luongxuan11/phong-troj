@@ -7,9 +7,12 @@ import { apiCreatePost } from '../../services'
 import { validate } from '../public/validate'
 import { resestDataEdit } from '../../store/actions'
 import { Loading } from '../../components'
+import { path } from '../../utilities/constant'
+import { useNavigate } from 'react-router-dom'
 
 const CreatePost = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [payload, setPayload] = useState({
     categoryCode: '',
     description: '',
@@ -71,13 +74,13 @@ const CreatePost = () => {
           target: '',
           province: ''
         })
+        navigate(`/he-thong/${path.MANAGE_POST}`)
       })
     }else{
       setLoading(false)
       Swal.fire("Oops !","Có lỗi rùi...", "error")
     }
   }
-  // console.log(finalPayload)
   }
   return (
     <>

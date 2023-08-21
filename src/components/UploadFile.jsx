@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useEffect, useState, useEffectLayout } from "react";
 import icons from "../utilities/icons";
 import { apiUploadImages } from "../services/post";
 import Loading from "./Loading";
@@ -6,13 +6,21 @@ import { useSelector } from "react-redux";
 
 const { FcSwitchCamera, RiDeleteBin5Line } = icons;
 
-const UploadFile = ({ id, type, payload, setPayload, setInvalidFields, invalidFields }) => {
+const UploadFile = ({
+  id,
+  type,
+  payload,
+  setPayload,
+  setInvalidFields,
+  invalidFields,
+}) => {
   const { dataEdit } = useSelector((state) => state.post);
   // console.log(dataEdit)
   const [preview, setPreview] = useState([]);
-  // const [isLoading, setIsLoading] = useState(false)
+  const [deleteItem, setDeleteItem] = useState("");
 
-  
+  // const [isLoading, setIsLoading] = useState(false)
+  // console.log(dataEdit)
 
   const handleFiles = (e) => {
     e.stopPropagation();
@@ -23,34 +31,42 @@ const UploadFile = ({ id, type, payload, setPayload, setInvalidFields, invalidFi
         setPreview((prev) => [...prev, e.target.result]);
       };
       reader.readAsDataURL(selectedImage);
-      setPayload((prev) => ({...prev, images: [...payload, selectedImage]}));
+      setPayload((prev) => ({ ...prev, images: [...payload, selectedImage] }));
     }
   };
   // useEffect(() => {
   //   let imageArr = [...preview];
   //   setPayload((prev) => ({ ...prev, images: [...imageArr] }));
   // }, [preview]);
-  useEffect(() =>{
-    if(dataEdit){
-      let images = JSON.parse(dataEdit?.images?.image)
-      console.log(images)
-      images && setPreview(images)
+  useEffect(() => {
+    if (dataEdit) {
+      let images = JSON.parse(dataEdit?.images?.image);
+      // console.log(images)
+      images && setPreview(images);
     }
-  }, [dataEdit])
+  }, [dataEdit]);
+  // const deleteLinkArr = new Array();
 
-  const handleDeleteImage = (index) => {
+  const handleDeleteImage = (index, item) => {
     const newPreview = [...preview];
     newPreview.splice(index, 1);
     const newImages = [...payload];
     newImages.splice(index, 1);
+    const getItem = item
+      .split("/")
+      .slice(-1)
+      .map((item) => item.split(".")[0]);
+    const linkSlice = getItem.toString()
 
-    // console.log("check",deletedItem)
     setPreview(newPreview);
     setPayload((prev) => ({
       ...prev,
       images: newImages,
+      linkSlice
     }));
+    // console.log(deleteLinkArr);
   };
+
   return (
     <>
       <h3 className="overview-image__heading">Hình ảnh</h3>
@@ -80,7 +96,9 @@ const UploadFile = ({ id, type, payload, setPayload, setInvalidFields, invalidFi
           return (
             <div key={index} className="preview-images row">
               <img src={item} alt="ảnh" />
-              <RiDeleteBin5Line onClick={() => handleDeleteImage(index)} />
+              <RiDeleteBin5Line
+                onClick={() => handleDeleteImage(index, item)}
+              />
             </div>
           );
         })}

@@ -1,4 +1,4 @@
-import {React, memo, useState} from 'react'
+import {React, memo, useEffect, useState} from 'react'
 import {Address, Overview, Button} from '../components'
 import { getCodes, getCodesAcreage } from '../utilities/common/getCodePrices'
 import { useSelector, useDispatch } from 'react-redux'
@@ -13,6 +13,8 @@ const {AiOutlineCloseCircle} = icons
 const UploadPostModel = ({isEdit, setIsEdit, setLoading}) => {
   const {dataEdit} = useSelector(state => state.post)
   const dispatch = useDispatch()
+
+  const [fireFileName, setFireFileName] = useState([]);
   const [payload, setPayload] = useState(() => {
     const initData = {
       categoryCode: dataEdit?.categoriesCode,
@@ -34,6 +36,16 @@ const UploadPostModel = ({isEdit, setIsEdit, setLoading}) => {
   const {prices, acreages, categories} = useSelector(state => state.app)
   const {currentData} = useSelector(state => state.user)
   const [invalidFields, setInvalidFields] = useState([])
+  
+  //find fileName for fileLink
+ 
+ useEffect(() =>{
+  let findFileName = JSON.parse(payload?.fileName);
+  let deleteFileName = findFileName?.filter((item) =>item.includes(payload.linkSlice));
+
+  setFireFileName(prev => [...prev, ...deleteFileName]);
+}, [payload.linkSlice])
+
   const handleSubmit = async () =>{
     let priceCodeArr = getCodes((+payload.priceNumber / Math.pow(10,6)), prices, 1, 15)
     let acreageCodeArr = getCodesAcreage(+payload.acreageNumber, acreages, 20, 90)
@@ -69,11 +81,12 @@ const UploadPostModel = ({isEdit, setIsEdit, setLoading}) => {
       postId: dataEdit?.id,
       imageLink,
       imageFile,
-      images: imageLink
+      images: imageLink,
+      fireFileName
     }
-    // console.log(finalPayload.deletedItem)
+    console.log(finalPayload)
     const result = validate(finalPayload, setInvalidFields)
-    // console.log(result)
+    console.log(result)
     if(result === 0){
       setLoading(true)
       const response = await apiUpdatePost(finalPayload)

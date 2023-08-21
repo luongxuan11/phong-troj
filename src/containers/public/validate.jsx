@@ -100,12 +100,25 @@ export const validate = (payload, setInvalidFields) => {
             },
           ]);
           invalid += 1;
-        }else if (!+item[1] < 0) {
+        }else if (+item[1] < 0) {
           setInvalidFields((prev) => [
             ...prev,
             {
               name: item[0],
               mess: `Không được nhập số âm`,
+            },
+          ]);
+          invalid += 1;
+        }
+        break;
+
+      case "images":
+        if(item[1].length > 6){
+          setInvalidFields((prev) => [
+            ...prev,
+            {
+              name: item[0],
+              mess: `Do giới hạn dung lượng vui lòng chọn ít hơn 6 ảnh`,
             },
           ]);
           invalid += 1;
