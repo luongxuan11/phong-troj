@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import {formatVietNamToString} from '../../utilities/common/formatVietNamToString'
+import {path} from '../../utilities/constant'
 
 const Navigation = ({categories}) => {
 
@@ -22,6 +23,9 @@ const Navigation = ({categories}) => {
               </li>
             );
           })}
+          <li className={`home-nav__item ${currentPathName.includes('lien-he') && 'active'}`}>
+            <NavLink to={path.CONTACT}>Liên hệ</NavLink>
+          </li>
       </ul>
     </div>
   );

@@ -24,6 +24,7 @@ const Model = ({setIsShowModel, content, name, text, handleSubmit, queries, arrM
       ? arrMinMax?.acreagesArr[1]
       : 100
   );
+
   const [activeElement, setActiveElement] = useState("");
   
   useEffect(() => {
@@ -70,6 +71,7 @@ const Model = ({setIsShowModel, content, name, text, handleSubmit, queries, arrM
 
   const resultPresentMax = convert100ToTarget(presentMax);
   const resultPresentMin = convert100ToTarget(presentMin);
+  // console.log(presentMin)
 
   // handle price
   const handleActive = (id, value) => {
@@ -127,18 +129,12 @@ const Model = ({setIsShowModel, content, name, text, handleSubmit, queries, arrM
       resultPresentMin < resultPresentMax ? resultPresentMin : resultPresentMax;
     let max =
       resultPresentMin < resultPresentMax ? resultPresentMax : resultPresentMin;
-    let arrMinMax = [min, max];
-    // const gaps =
-    //   name === "prices"
-    //     ? getCodes(arrMinMax, content)
-    //     : name === "acreages"
-    //     ? getCodesAcreage(arrMinMax, content)
-    //     : console.error("mày vào sửa ở file model dòng 104");
-    //     console.log(gaps)
+    let arrMinMax = (min === max && presentMin === 100) ? [min] : [min, max];
+   
     handleSubmit( e, {
         [`${name}Number`]: arrMinMax,
         [name]:
-          resultPresentMin === resultPresentMax
+          (resultPresentMin === resultPresentMax)
             ? `${resultPresentMin} ${name === "prices" ? "triệu" : "m2"}`
             : name === "prices"
             ? `Từ ${min} - ${max} triệu`

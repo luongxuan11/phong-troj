@@ -50,7 +50,7 @@ const Search = () => {
     setQueries(prev => ({...prev, ...query}))
     setIsShowModel(false)
     arrMinMax && setArrMinMax(prev => ({...prev, ...arrMinMax}))
-    // console.log(isShowModel, queries)
+    // console.log(queries)
   }, [isShowModel, queries])
 
   // handle search
@@ -59,6 +59,7 @@ const Search = () => {
     let resultFilteredQueries = {}
     filteredQueries.forEach((item) => resultFilteredQueries[item[0]] = item[1])
 
+    // console.log(resultFilteredQueries)
     const filteredQueriesText = Object.entries(queries).filter((item) => (!item[0].includes('Number') && !item[0].includes('Code')))
     // console.log("chek text>>>>>>", filteredQueriesText)
     const titleSearchHeading = filteredQueriesText.map((item) => item[1]).join(' > ');
@@ -79,7 +80,10 @@ const Search = () => {
             <SearchItem onClick={() => handleIsShowModel(acreages, 'acreages', 'CHỌN DIỆN TÍCH', 'Chọn diện tích')} text={queries.acreages} defaultText={'Chọn diện tích'} firstIcon={<RiCrop2Line />} lastIcon={<GrFormNext style={{ marginLeft: 'auto'}}/>}/>
             <Button btnClass={'home-search__action'} onClick={handleSearch} text={'Tìm kiếm'} iconSearch={<FiSearch/>}/>
         </div>
-        {isShowModel && <Model handleSubmit={handleSubmit} defaultText={defaultText} queries={queries} arrMinMax={arrMinMax} content={content} setIsShowModel={setIsShowModel} name={name} text={text}/>}
+        {isShowModel && <Model handleSubmit={handleSubmit} 
+                        defaultText={defaultText} queries={queries} 
+                        arrMinMax={arrMinMax} content={content} 
+                        setIsShowModel={setIsShowModel} name={name} text={text}/>}
     </div>
   )
 }

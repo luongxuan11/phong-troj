@@ -7,7 +7,7 @@ const Province = () => {
     <div className="province-box row">
         {locationCity.map((item) => {
           return (
-            <ProvinceAction key={item.id} image={item.image} name={item.name} />
+            <ProvinceAction key={item.id} image={item.image} name={item.name} provinceCode={item.provincesCode}/>
           );
         })}
       </div>

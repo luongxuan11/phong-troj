@@ -10,7 +10,7 @@ const Pagination = ({number}) => {
   const { post, count } = useSelector((state) => state.post);
   // console.log(count)
   const [arrPage, setArrPage] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [isHideEnd, setIsHideEnd] = useState(false);
   const [isHideStart, setIsHideStart] = useState(false);
   const [searchParam] = useSearchParams()
@@ -19,7 +19,7 @@ const Pagination = ({number}) => {
   useEffect(() =>{
     // let page = searchParam.get('page')
     number && (+number !== currentPage) && setCurrentPage(+number)
-    !number && setCurrentPage(0)
+    !number && setCurrentPage(1)
   },[searchParam])
 
   // console.log(currentPage)
@@ -28,7 +28,7 @@ const Pagination = ({number}) => {
       let maxPage = Math.floor(count / 10);
 
       let end = currentPage + 2 > maxPage ? maxPage : currentPage + 2;
-      let start = currentPage - 2 < 0 ? 0 : currentPage - 2;
+      let start = currentPage - 2 < 0 ? 1 : currentPage - 1;
 
       let pages = [];
 
@@ -46,7 +46,7 @@ const Pagination = ({number}) => {
   // console.log(arrPage.length)
   return (
     <div className="home-item__pagination row">
-      {!isHideStart && <PageNumber icon={"<<"}  setCurrentPage={setCurrentPage} text={0}/>}
+      {!isHideStart && <PageNumber icon={"<<"}  setCurrentPage={setCurrentPage} text={1}/>}
       {!isHideStart && <PageNumber text={"..."} />}
       {arrPage.length > 0 &&
         arrPage.map((item) => {

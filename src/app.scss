@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 body {
-  background-color: #f5f5f5;
+  background-color: #222222;
   font-family: "poppins";
 }
 // common
@@ -10,6 +10,10 @@ body {
   width: 1170px;
   max-width: calc(100% - 48px);
   margin: 0 auto;
+}
+.swal2-popup{
+  background: #121212;
+  color: #fff;
 }
 .ellipsis {
   display: -webkit-box;
@@ -21,6 +25,9 @@ body {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+svg{
+  color: #fff !important;
 }
 label {
   cursor: pointer;
@@ -64,6 +71,7 @@ span {
 
 .home {
   width: 100%;
+  background-color: #222222;
 
   // home header
   &-header {
@@ -73,19 +81,22 @@ span {
       position: relative;
       &__login {
         background-color: #1266dd;
+        color: #fff;
       }
       &__register {
         background-color: #f73859;
+        color: #fff;
       }
       &__manage {
         background-color: #122add;
+        color: #fff;
       }
       &__manage__model {
         position: absolute;
         top: 45px;
         right: 95px;
         z-index: 9999;
-        background-color: #fff;
+        background-color: #000;
         border-radius: 8px;
         flex-direction: column;
         overflow: hidden;
@@ -97,13 +108,14 @@ span {
           color: #fff;
           gap: 10px;
           &:hover {
-            background-color: #dadada;
+            background-color: #373737;
             color: #f73859;
           }
         }
       }
       &__news {
-        border: 1px solid;
+        border: 1px solid #575757;
+        color: #fff;
         text-decoration: underline;
         transition: 0.5s;
         &:hover {
@@ -118,13 +130,13 @@ span {
     // margin: 0 auto;
     .home-login__wrapper {
       margin: 10px auto 0 !important;
-      background-color: #fff;
+      background-color: #121212;
       width: 50%;
       border-radius: 10px;
       padding: 30px 30px 100px;
-      border: 1px solid #dedede;
+      border: 1px solid #363636;
+      color: #fff;
       .home-login__title {
-        color: #333;
         font-size: 2.8rem;
         margin-bottom: 2rem;
       }
@@ -139,6 +151,8 @@ span {
           padding: 7px 10px;
           border-radius: 3px;
           margin: 10px 0;
+          border: 0.5px solid #575757;
+          color: #fff;
         }
         label {
           font: {
@@ -170,6 +184,7 @@ span {
         font-weight: 700;
         margin: 20px 0 40px 0;
         transition: 0.3s;
+        color: #fff;
         &:hover {
           box-shadow: rgba(57, 96, 251, 0.762) 0px 7px 29px 0px;
         }
@@ -202,11 +217,13 @@ span {
     top: 0;
     z-index: 999;
     &__list {
-      justify-content: space-between;
+      // justify-content: space-around;
+      gap: 4%;
       .home-nav__item {
         cursor: pointer;
         white-space: nowrap;
         overflow: hidden;
+        border-radius: 3px;
         font: {
           weight: 500;
           size: 1.3rem;
@@ -238,7 +255,7 @@ span {
       overflow: hidden;
       width: 31.1%;
       height: 15rem;
-      background-color: #fff;
+      background-color: #000;
       &:hover .province-box__title {
         color: #fb4e38;
       }

@@ -7,7 +7,8 @@ const initState = {
   count: 0,
   newPost: [],
   postOfCurrent: [],
-  dataEdit: null
+  dataEdit: null,
+  hotNews: []
 };
 
 const postReducer = (state = initState, action) => {
@@ -26,6 +27,12 @@ const postReducer = (state = initState, action) => {
         mess: action.mess || "",
         newPost: action.newPost || [], 
       }
+    case actionTypes.GET_HOT_NEWS:
+        return {
+          ...state, // giải state ra
+          mess: action.mess || "",
+          hotNews: action.hotNews || [], 
+        }
     case actionTypes.GET_POST_LIMIT_ADMIN:
       return {
         ...state,

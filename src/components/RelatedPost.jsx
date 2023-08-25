@@ -1,21 +1,28 @@
-import React, { memo, useEffect } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import {ItemNewPost} from './index'
 import {useDispatch, useSelector} from 'react-redux'
 import * as actions from '../store/actions'
 
-const RelatedPost = () => {
+const RelatedPost = ({hotNew}) => {
 
-  const { newPost } = useSelector((state) => state.post)
+  const { newPost, hotNews } = useSelector((state) => state.post)
+
+  const [posts, setPosts] = useState(hotNew ? hotNews : newPost)
   const dispatch = useDispatch()
+
   useEffect(() =>{
-    dispatch(actions.getNewPost())
+    hotNew ?  dispatch(actions.getHotNews()) : dispatch(actions.getNewPost())
   }, [])
-  // console.log('check newpost', newPost)
+
+  useEffect(() => {
+    hotNew ? setPosts(hotNews) : setPosts(newPost)
+  }, [hotNew, newPost])
+
 
   return (
     <div className='home-list__relatedPost'>
-      <h3 className='home-relatedPost__heading'>Tin mới đăng</h3>
-      {newPost?.map((item) =>{
+      <h3 className='home-relatedPost__heading'>{hotNew ? "Tin nổi bật" : "Tin mới đăng"}</h3>
+      {posts?.map((item) =>{
         return (
           <ItemNewPost key={item?.id} image={JSON.parse(item?.images?.image)} title={item?.title} price={item?.attribute?.price} createdAt={item?.createdAt}/>
         )

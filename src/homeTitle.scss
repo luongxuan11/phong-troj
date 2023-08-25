@@ -2,6 +2,7 @@
   //   border: 1px solid blue;
   width: 100%;
   .home-title__h1 {
+    color: #fff !important;
     font: {
       size: 2.8rem;
     }
@@ -10,7 +11,7 @@
     line-height: 1.2;
   }
   .home-desc__p {
-    color: #65676b;
+    color: #a0a2a6;
     margin-bottom: 3rem;
     font: {
       size: 1.4rem;
@@ -28,7 +29,7 @@
   align-items: flex-start !important;
   // home list menu
   &__inner{
-    background-color: #fff;
+    background-color: #121212;
     border-radius: 8px;
     padding: 20px;
   }
@@ -39,6 +40,9 @@
     .home-list__box {
       justify-content: space-between;
       margin-bottom: 1.5rem;
+      h4{
+        color: #fff;
+      }
     }
   }
 
@@ -54,7 +58,8 @@
       margin-right: 10px;
     }
     .home-list__btn {
-      background-color: #f1f1f1;
+      background-color: #252525;
+      color: #fff;
       padding: 5px 10px;
       margin-left: 5px;
     }
@@ -66,10 +71,10 @@
       padding-bottom: 20px;
       margin-bottom: 20px;
       gap: 20px;
-      border-bottom: 1px solid;
+      border-bottom: 1px solid #615959;
       align-items: flex-start;
       .home-item__image--wrapper {
-        border: 1px solid;
+        border: 1px solid #7c678f;
         position: relative;
         flex-shrink: 0;
         height: 245px;
@@ -77,10 +82,18 @@
         display: flex;
         flex-wrap: wrap;
         gap: 2%;
+        overflow: hidden;
         .home-item__image {
           // flex-grow: 1;
           width: 49%;
-          height: 49%;
+          aspect-ratio: 2/1;
+          object-fit: cover;
+          object-position: center;
+        }
+        .home-item__image1 {
+          // flex-grow: 1;
+          width: 100%;
+          aspect-ratio: 2/1;
           object-fit: cover;
           object-position: center;
         }
@@ -98,9 +111,10 @@
       }
 
       .home-item__info {
-        h5 {
+        a {
           color: #d84e38;
-          line-height: 1.3;
+          line-height: 1.4;
+          font-size: 1.7rem;
           display: -webkit-box;
           -webkit-line-clamp: 2;
           -webkit-box-orient: vertical;
@@ -110,6 +124,7 @@
             text-decoration: underline;
           }
           margin-bottom: 10px;
+          font-weight: 700;
         }
         .home-item__static {
           justify-content: space-between;
@@ -160,11 +175,13 @@
             object-fit: cover;
           }
           .user-action {
-            border: 1px solid #1266dd;
+            border: 1px solid #4868ab;
+            color: #fff;
           }
         }
         .user-phone {
-          background-color: #1266dd;
+          background-color:#1266dd;
+          color: #fff;
           display: block;
           margin: 10px 0 10px auto;
         }

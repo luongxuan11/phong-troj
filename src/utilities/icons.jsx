@@ -17,6 +17,8 @@ import { IoIosArrowDown, IoIosSettings } from "react-icons/io";
 import { HiOutlinePencilAlt, HiOutlineNewspaper } from "react-icons/hi";
 import { BiMessageRounded } from "react-icons/bi";
 import { FcSwitchCamera } from "react-icons/fc";
+import { GoClock, GoDotFill } from "react-icons/go";
+import { BiHash } from "react-icons/bi";
 const icons = {
   GrAddCircle,
   GrFormNext,
@@ -44,6 +46,9 @@ const icons = {
   BiMessageRounded,
   FcSwitchCamera,
   RiDeleteBin5Line,
-  AiOutlineCloseCircle
+  AiOutlineCloseCircle,
+  GoClock,
+  BiHash,
+  GoDotFill
 };
 export default icons;

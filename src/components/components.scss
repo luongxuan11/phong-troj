@@ -2,11 +2,12 @@
   border: 1px solid;
   margin-bottom: 20px;
   padding: 20px;
-  background-color: #fff;
+  background-color: #121212;
   width: 100%;
   border-radius: 8px;
   // heading
   .sidebar__heading {
+    color: #fff;
     font: {
       weight: 700;
       size: 1.6rem;
@@ -30,10 +31,14 @@
 
       .sidebar-menu__box {
         justify-content: space-between;
-        border-bottom: 1px dashed;
+        border-bottom: 1px dashed #575757;
+       
         .sidebar-menu__box--inner {
           margin: 10px 0;
           cursor: pointer;
+          p{
+            color: #fff;
+          }
           .sidebar-menu__item:hover {
             color: #cb260e;
           }
@@ -44,7 +49,7 @@
       }
 
       .sidebar-menu__statis {
-        color: #33333375;
+        color: #70706a;
       }
     }
 
@@ -56,7 +61,7 @@
       justify-content: space-between;
       .sidebar-menu__box {
         width: 45%;
-        border-bottom: 1px dashed;
+        border-bottom: 1px dashed #575757;
       }
     }
     // acreages
@@ -67,16 +72,16 @@
       justify-content: space-between;
       .sidebar-menu__box {
         width: 45%;
-        border-bottom: 1px dashed;
+        border-bottom: 1px dashed #575757;
       }
     }
   }
 }
 .home-list__relatedPost {
-  background: #fff;
+  background: #121212;
   padding: 20px;
   border-radius: 8px;
-  border: 1px solid;
+  color: #fff;
   .relatedPost-item {
     margin: 30px 0;
     overflow: hidden;
@@ -98,8 +103,9 @@
     .relatedPost-box{
       flex-grow: 1;
       width: 75%;
+
       &__title{
-        color: #055699;
+        color: #8bbbff;
         font: {
           weight: 400;
           size: 1.4rem
@@ -172,13 +178,15 @@
   top: 0;
   z-index: 1;
   // height: 100vh;
-  background: #dadada58;
+  background-color: #00000062;
+  -webkit-backdrop-filter: blur(4px) brightness(130%);
+  backdrop-filter: blur(4px) brightness(130%);
   justify-content: center;
   align-items: flex-start !important;
   overflow: auto;
   &__wrapper{
     width: clamp(1000px, 70%, 1200px);
-    background: #fff;
+    background: #121212;
     .system-createPost{
       border-radius: 10px;
       padding: 30px 20px 50px 20px !important;

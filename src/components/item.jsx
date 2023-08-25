@@ -4,7 +4,6 @@ import { Button } from "./index";
 import {useNavigate, Link} from 'react-router-dom'
 import {formatVietNamToString} from '../utilities/common/formatVietNamToString'
 import avatar from "../assets/avatar.jpg"
-import { Buffer } from "buffer";
 
 
 const { AiTwotoneStar, AiOutlineHeart, AiFillHeart } = icons;
@@ -29,7 +28,8 @@ const Item = ({address, attribute, star, description, images, title, user, id}) 
   return (
     <div className="home-item__box row">
       <Link to={`/chi-tiet/${formatVietNamToString(title)}/${id}`} className="home-item__image--wrapper">
-        {images.slice(0,4).map((item, index) => {
+        {(images.length >= 1 && images.length <= 3) ? <img src={images[0]} alt="" className="home-item__image home-item__image1" /> 
+        : images.slice(0,4).map((item, index) => {
           return (
             <img key={index} src={item} alt="" className="home-item__image" />
           );
@@ -37,10 +37,10 @@ const Item = ({address, attribute, star, description, images, title, user, id}) 
         <span className="home-item__image--info">{images.length} Ảnh</span>
       </Link>
       <div className="home-item__info">
-        <h5 className="">
+        <Link to={`/chi-tiet/${formatVietNamToString(title)}/${id}`}>
           <span className="home-item__info--star ">{stars} </span>
           {title}
-        </h5>
+        </Link>
         <div className="home-item__static row">
           <strong className="">{attribute?.price}</strong>
           <p className="acreage">{attribute?.acreage}</p>

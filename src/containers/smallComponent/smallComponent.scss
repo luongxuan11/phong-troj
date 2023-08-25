@@ -10,7 +10,7 @@
   }
   &__box {
     border-radius: 8px;
-    background-color: #fff;
+    background-color: #121212;
     padding: 5px 10px;
     min-width: 15%;
     cursor: pointer;
@@ -39,6 +39,7 @@
     background-color: #0071c2;
     padding: 13px 0 !important;
     width: 17%;
+    color: #fff;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -51,10 +52,11 @@
 
 .introduce,
 .contact {
-  background: #fff;
-  border: 1px solid;
+  background: #121212;
+  border: 1px solid #575757;
   text-align: center;
   border-radius: 8px;
+  color: #fff;
 }
 
 .introduce {
@@ -71,6 +73,7 @@
   // content
   &__content {
     margin: 14px 0;
+    line-height: 1.4;
   }
 
   // statis
@@ -120,11 +123,12 @@
     border: 1px solid;
     background: #f73859;
     padding: 10px 40px !important;
+    color: #fff;
   }
 }
 
 .contact {
-  border: 5px dashed;
+  border: 5px dashed #575757;
   margin: 30px auto !important;
   padding: 30px;
   //image
@@ -157,6 +161,7 @@
     background-color: #0071c2;
     margin-top: 40px;
     padding: 15px 55px !important;
+    color: #fff;
   }
 }
 
@@ -183,7 +188,7 @@
       position: relative;
       font-size: 2rem;
       padding: 20px;
-      border-bottom: 1px solid #dadada;
+      border-bottom: 1px solid #323232;
       &__icon {
         position: absolute;
         left: 15px;
@@ -209,7 +214,8 @@
       }
       &__item {
         padding: 20px 0;
-        border-bottom: 1px solid #dadada;
+        color: #ffffffae;
+        border-bottom: 1px solid #323232;
         &--normal {
           margin-right: 10px;
         }
@@ -309,10 +315,11 @@
           flex-grow: 1;
           flex-shrink: 1;
           padding: 5px 10px;
-          background-color: #dadada;
+          background-color: #373737;
           border-radius: 5px;
           text-align: center;
-          border: 0.5px solid #dadada85;
+          border: 0.5px solid #606060;
+          color: #fff;
         }
         .model-province__quickPick--bgr{
           background-color: #1266dd;
@@ -324,6 +331,7 @@
       width: 100%;
       padding: 10px;
       justify-content: center;
+      color: #fff;
       font: {
         weight: 600;
         size: 1.7rem

@@ -1,5 +1,5 @@
 .system {
-  background: #222222;
+  background: #151515;
   &-header {
     width: 100%;
     position: fixed;
@@ -25,6 +25,7 @@
   &-wrapper {
     align-items: flex-start !important;
     width: 100%;
+    color: #fff;
     // height: 100vh;
     .system-sidebar {
       flex-shrink: 0;
@@ -32,10 +33,12 @@
       height: 100vh;
       position: fixed;
       padding: 20px 30px;
-      background: #fff;
+      background: #121212;
+      color: #ffffffce;
       &__info {
         gap: 15px;
         margin-bottom: 20px;
+        color: #fff;
         img {
           width: 50px;
           height: 100%;
@@ -90,7 +93,7 @@
           color: #fff;
           font-size: 1.5rem !important;
           gap: 10px;
-          border-bottom: 1px dashed #eee;
+          border-bottom: 1px dashed #414141;
           padding: 15px 0;
           width: 100%;
         }
@@ -104,7 +107,7 @@
           }
         }
         .system-sidebar__control--active {
-          color: #1345db;
+          color: #a6a6ff;
           text-shadow: 0px 1px 7px #16377f;
         }
       }
@@ -119,14 +122,15 @@
         font-size: 3.3rem;
         font-weight: 500;
         padding-bottom: 20px;
-        border-bottom: 2px solid #dadada;
+        border-bottom: 2px solid #323232;
+        color: #fff;
       }
       .potUp {
         background: #452c2f;
         padding: 10px 17px;
-        border: 1px solid #dadada;
+        border: 1px solid #838282;
         margin: 15px 0 35px 0;
-        color: #721c24;
+        color: #f9a89d;
         font-size: 1.4rem;
         line-height: 1.3;
         border-radius: 3px;
@@ -162,13 +166,15 @@
                   label {
                     font-weight: 600;
                     font-size: 1.3rem;
+                    color: #fff;
                   }
                   select {
                     outline: none;
-                    border: 0.5px solid #dadada;
-                    background: #dadada99;
+                    border: 0.5px solid #828282;
+                    background: #292929;
                     border-radius: 2px;
                     padding: 10px 20px;
+                    color: #fff;
                   }
                 }
               }
@@ -176,14 +182,17 @@
                 width: 100%;
                 p {
                   font-weight: 600;
+                  color: #fff;
                 }
                 input {
                   width: 100%;
                   padding: 10px 10px;
                   margin-top: 10px;
-                  background: #dadada58;
+                  background: #212121;
                   border-radius: 3px;
                   outline: none;
+                  color: #487fe3;
+                  font-weight: 600;
                 }
               }
             }
@@ -197,6 +206,7 @@
               &__heading {
                 margin: 40px 0;
                 font-size: 2.3rem;
+                color: #fff;
               }
               .overview-type {
                 .system-address__select__box--inner--small {
@@ -209,9 +219,11 @@
                   width: 50%;
                   padding: 10px;
                   outline: unset;
-                  border: 0.5px solid #dadada70;
+                  border: 0.5px solid #3b3b3b;
+                  background: #3b3b3b;
                   border-radius: 3px;
                   margin-top: 10px;
+                  color: #fff;
                 }
                 &__input--box {
                   flex-direction: column;
@@ -228,8 +240,10 @@
                     border-radius: 3px;
                     transition: 0.5s;
                     outline: none;
+                    resize: none;
+                    color: #fff;
                     &:focus {
-                      border: 2px solid #133bdb9a;
+                      border: 2px solid #524c6f;
                     }
                   }
                   .setting {
@@ -241,10 +255,10 @@
                     span {
                       position: absolute;
                       right: 1px;
-                      top: 2px;
+                      top: 1px;
                       font-weight: 600;
                       color: #dadada;
-                      background-color: #dadada;
+                      background-color: #373737;
                       padding: 10px;
                     }
                     small {
@@ -258,10 +272,12 @@
                   .phone {
                     width: 50%;
                     background: #dadada25;
+                    border: none;
                   }
                   .price,
                   .acreage {
                     background: transparent;
+                    border: 1px solid #2b2a2a;
                   }
                 }
               }
@@ -282,7 +298,7 @@
                   label,
                   .loading {
                     display: block;
-                    border: 3px dashed #fff;
+                    border: 3px dashed #3c3c3c;
                     border-radius: 8px;
                     width: 100%;
                     text-align: center;
@@ -400,6 +416,7 @@
         margin: 70px 0;
         font-size: 1.8rem;
         transition: 0.3s;
+        color: #fff;
         &:hover {
           text-decoration: none;
           box-shadow: 1px 0px 28px rgba(9, 164, 40, 0.732);
@@ -408,9 +425,10 @@
     }
 
     .system-manage {
-      height: 100%;
+      height: 100vh;
       padding: 70px 50px 100px 290px;
       width: calc(100% - 0px);
+      color: #fff;
       .manage__heading__box {
         justify-content: space-between;
         .manage__heading {
@@ -418,13 +436,15 @@
         }
         padding-bottom: 20px;
         margin-bottom: 15px;
-        border-bottom: 1px solid;
+        border-bottom: 1px solid #575757;
         .manage__control{
           select{
             padding: 3px 6px;
             outline: none;
             border: none;
             border-radius: 3px;
+            background: #3b3b3b;
+            color: #fff;
             &:hover{
               cursor: pointer;
             }
@@ -433,14 +453,16 @@
       }
       &__table {
         width: 100%;
-        border: 2px solid;
+        border: 2px solid #575757;
         .table__title {
+          background: #37446982;
           .table__title-box{
-            border: 1px solid;
+            border: 1px solid #575757;
             padding: 10px;
             height: 60px;
             justify-content: center;            
             p{
+              color: #fff;
               font-weight: 600;
               font-size: clamp(1.6rem, 1.8rem, 2rem);
             }
@@ -459,7 +481,7 @@
             .code,
             .img,
             p {
-              border: 1px solid;
+              border: 1px solid #575757;
               height: 100px;
               display: flex;
               justify-content: center;
@@ -467,6 +489,7 @@
               font-size: 1.4rem;
               padding: 0 5px;
               text-align: center;
+              color: #fff;
             }
             img {
               width: 50%;
@@ -511,11 +534,16 @@
           padding: 5px;
           justify-content: space-around;
           min-width: 97px;
+          
           &__btn--config{
             background: green;
+            color: #fff;
+            font-weight: 600;
           }
           &__btn--delete{
             background: rgb(224, 15, 15);
+            color: #fff;
+            font-weight: 600;
           }
         }
       }
@@ -528,7 +556,7 @@
         font-size: 2.8rem;
         font-weight: 500;
         padding-bottom: 20px;
-        border-bottom: 2px solid #dadada;
+        border-bottom: 2px solid #323232;
       }
       .edit-account__info--box{
         flex-direction: column;
@@ -551,9 +579,11 @@
               width: 100%;
               padding: 10px 20px;
               font-size: 1.7rem;
-              border: 0.5px solid #dadadadb;
+              border: 0.5px solid #323232;
+              color: #fff;
               border-radius: 5px;
               transition: 0.3s;
+              background: #3b3b3b;
               &:focus{
                 border: 0.7px solid #1345db;
               }
@@ -564,6 +594,7 @@
               font-size: 1.4rem;
               font-weight: 500;
               transition: 0.3s;
+              color: #b286c6;
               &:hover{
                 color: rgb(207, 28, 28);
               }
@@ -587,6 +618,7 @@
           font-size: 1.6rem;
           font-weight: 600;
           transition: 0.3s;
+          color: #b286c6;
           &:hover{
             color: rgb(207, 28, 28);
           }

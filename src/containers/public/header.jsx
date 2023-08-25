@@ -57,6 +57,7 @@ const Header = ({ currentData }) => {
           text={"Thêm tin mới"}
           btnClass={" btn-box__news"}
           Icon={GrAddCircle}
+          onClick={() => navigate('/he-thong/tao-moi-bai-dang')}
         />
       </div>
     </div>

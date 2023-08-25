@@ -108,6 +108,34 @@ export const getNewPost = () => async (dispatch) => {
     }
 }
 
+export const getHotNews = () => async (dispatch) => { 
+    try {
+    const response = await apiGetPostsLimit({
+        limitPost: 5,
+        order: ["star", 'DESC'] 
+    })
+    // console.log(response)
+    if(response?.data.err === 0){  
+        dispatch({ 
+            type: actionTypes.GET_HOT_NEWS,
+            hotNews: response.data.res.rows,  //post này bên reducer có action để chấm tớn
+        })
+    } else{
+        dispatch({  //err =1 thì vào đây
+            type: actionTypes.GET_HOT_NEWS,
+            mess: response.data.mess, // bên reducer
+            hotNews: null
+        })
+    }
+    } catch (error) {
+        
+        dispatch({
+            type: actionTypes.GET_HOT_NEWS,
+            hotNews: null
+        })
+    }
+}
+
 export const dataEdit = (dataEdit) => ({ 
     type: actionTypes.EDIT_DATA,
     dataEdit
